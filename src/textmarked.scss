@@ -8,5 +8,30 @@
  */
 
 .textmarked {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 4px;
+    white-space: nowrap;
 
+    li {
+      border: 1px solid #ccc;
+      border-right: none;
+      cursor: pointer;
+      display: inline-block;
+      height: 30px;
+      width: 30px;
+
+      &:last-child {
+        border-right: 1px solid #ccc;
+      }
+    }
+  }
+
+  .textarea {
+    border: inset;
+    cursor: text;
+    overflow: scroll;
+    resize: both;
+  }
 }

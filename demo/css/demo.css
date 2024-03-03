@@ -3,11 +3,16 @@ form {
   width: 400px;
 }
 
-form fieldset { 
+form fieldset {
   border: 0;
 }
 
 form label {
   display: block;
   margin-bottom: 5px;
+}
+
+.textmarked ul li {
+  height: 35px;
+  width: 35px;
 }

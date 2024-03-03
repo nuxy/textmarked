@@ -10,22 +10,62 @@
 'use strict';
 
 /**
- * @param {Element} container
- *   Containing HTML element.
+ * @param {Element} textarea
+ *   HTML textarea element.
  *
  * @param {Object} settings
  *   Editor settings.
  */
-function TextMarked(container, settings) {
+function TextMarked(textarea, settings) {
   const self = this;
 
   (function() {
-    if (settings) {
-
+    if (settings?.elements.length) {
+      renderEditor();
     } else {
       throw new Error('Failed to initialize (missing settings)');
     }
   })();
+
+  /**
+   * Render a Markdown editor instance.
+   */
+  function renderEditor() {
+    const editor = document.createElement('div');
+    editor.classList.add('textmarked');
+
+    const offset = textarea.getBoundingClientRect();
+
+    editor.style.height = Math.round(offset.height) + 'px';
+    editor.style.width  = Math.round(offset.width)  + 'px';
+
+    // Create menu elements.
+    const ul = document.createElement('ul');
+    ul.classList.add('actions');
+
+    for (let i = 0; i < settings?.elements.length; i++) {
+      const li = document.createElement('li');
+
+      ul.appendChild(li);
+    }
+
+    editor.appendChild(ul);
+
+    // Create textarea alternative.
+    const newarea = document.createElement('div');
+    newarea.classList.add('textarea');
+
+    const insetBorder = 6;
+
+    newarea.style.height = (Math.round(offset.height) - insetBorder) + 'px';
+    newarea.style.width  = (Math.round(offset.width)  - insetBorder) + 'px';
+
+    editor.appendChild(newarea);
+
+    textarea.parentNode.insertBefore(editor, textarea);
+    textarea.style.position   = 'absolute';
+    textarea.style.visibility = 'hidden';
+  }
 }
 
 /**

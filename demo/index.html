@@ -5,14 +5,27 @@
     <link rel="stylesheet" type="text/css" href="../dist/textmarked.min.css" />
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
 
-    <script type="text/javascript" src="../dist/textmarked.min.js"></script>
+    <script type="text/javascript" src="../src/textmarked.js"></script>
     <script>
       window.onload = function() {
-        var settings = {};
+        var settings = {
+          elements: [
+            'Heading',
+            'Bold',
+            'Italic',
+            'Blockquote',
+            'Ordered-List',
+            'Unordered-List',
+            'Code',
+            'Horizontal-Rule',
+            'Link',
+            'Image'
+          ]
+        };
 
-        var container = document.getElementById('editor');
+        var textarea = document.getElementById('editor');
 
-        textMarked(container, settings);
+        textMarked(textarea, settings);
       };
     </script>
 
