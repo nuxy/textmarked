@@ -44,7 +44,12 @@ function TextMarked(textarea, settings) {
     ul.classList.add('actions');
 
     for (let i = 0; i < settings?.elements.length; i++) {
+      const name = settings.elements[i];
+
+      // .. List elements.
       const li = document.createElement('li');
+      li.classList.add('icon');
+      li.classList.add(name.toLowerCase());
 
       ul.appendChild(li);
     }
@@ -63,6 +68,8 @@ function TextMarked(textarea, settings) {
     editor.appendChild(newarea);
 
     textarea.parentNode.insertBefore(editor, textarea);
+
+    // Hide original (use as cache).
     textarea.style.position   = 'absolute';
     textarea.style.visibility = 'hidden';
   }
