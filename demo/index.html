@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../dist/textmarked.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+
+    <script type="text/javascript" src="../dist/textmarked.min.js"></script>
+    <script>
+      window.onload = function() {
+        var settings = {};
+
+        var container = document.getElementById('editor');
+
+        textMarked(container, settings);
+      };
+    </script>
+
+    <title>Enable Markdown editor in HTML &lt;textarea &sol;&gt; | textmarked</title>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <label for="editor">Comments</label>
+
+        <textarea id="editor" class="textmarked" name="comments" cols="50" rows="10"></textarea>
+      </fieldset>
+    </form>
+  </body>
+</html>

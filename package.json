@@ -1,0 +1,56 @@
+{
+  "name": "textmarked",
+  "version": "0.0.1",
+  "description": "Enable Markdown editing in HTML <textarea />",
+  "main": "src/textmarked.js",
+  "scripts": {
+    "build": "babel src -s -D -d dist && npm run sass && npm run minify-css && npm run minify-js",
+    "lint": "eslint --ignore-path .gitignore src test",
+    "sass": "sass src/textmarked.scss dist/textmarked.css",
+    "minify-css": "node-minify --compressor clean-css --input 'dist/textmarked.css' --output 'dist/textmarked.min.css'",
+    "minify-js": "node-minify --compressor uglify-js --input 'dist/textmarked.js' --output 'dist/textmarked.min.js'",
+    "prepack": "npm run build",
+    "test": "wdio wdio.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxy/textmarked.git"
+  },
+  "keywords": [
+    "javascript",
+    "browser",
+    "plugin",
+    "html",
+    "textarea",
+    "markdown",
+    "editor"
+  ],
+  "bugs": {
+    "url": "https://github.com/nuxy/textmarked/issues"
+  },
+  "homepage": "https://github.com/nuxy/textmarked#readme",
+  "author": "Marc S. Brooks <devel@mbrooks.info> (https://mbrooks.info)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.24.0",
+    "@babel/eslint-parser": "^7.23.10",
+    "@babel/plugin-proposal-decorators": "^7.24.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-class-properties": "^7.23.3",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/register": "^7.23.7",
+    "@node-minify/clean-css": "^4.0.5",
+    "@node-minify/cli": "^6.2.0",
+    "@node-minify/uglify-js": "^4.0.5",
+    "@wdio/cli": "^8.32.3",
+    "@wdio/local-runner": "^8.32.3",
+    "@wdio/mocha-framework": "^8.32.3",
+    "@wdio/spec-reporter": "^8.32.2",
+    "eslint": "^8.57.0",
+    "sass": "^1.71.1"
+  },
+  "overrides": {
+    "got": "^12.0.0"
+  }
+}
