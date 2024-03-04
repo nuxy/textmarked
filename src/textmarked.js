@@ -31,19 +31,25 @@ function TextMarked(textarea, settings) {
    * Render a Markdown editor instance.
    */
   function renderEditor() {
+    const elmTotal = settings?.elements.length;
+
     const editor = document.createElement('div');
     editor.classList.add('textmarked');
 
     const offset = textarea.getBoundingClientRect();
+    const height = Math.round(offset.height);
+    const width  = Math.round(offset.width);
 
-    editor.style.height = Math.round(offset.height) + 'px';
-    editor.style.width  = Math.round(offset.width)  + 'px';
+    editor.style.height = height + 'px';
+    editor.style.width  = width  + 'px';
 
     // Create menu elements.
     const ul = document.createElement('ul');
     ul.classList.add('actions');
 
-    for (let i = 0; i < settings?.elements.length; i++) {
+    const colXY = Math.round(width / elmTotal);
+
+    for (let i = 0; i < elmTotal; i++) {
       const name = settings.elements[i];
 
       // .. List elements.
@@ -51,6 +57,8 @@ function TextMarked(textarea, settings) {
       li.classList.add('icon');
       li.classList.add(name.toLowerCase());
       li.setAttribute('title', name);
+      li.style.height = colXY + 'px';
+      li.style.width  = colXY + 'px';
 
       ul.appendChild(li);
     }
@@ -61,10 +69,10 @@ function TextMarked(textarea, settings) {
     const newarea = document.createElement('div');
     newarea.classList.add('textarea');
 
-    const insetBorder = 6;
+    const insetBorder = 2;
 
-    newarea.style.height = (Math.round(offset.height) - insetBorder) + 'px';
-    newarea.style.width  = (Math.round(offset.width)  - insetBorder) + 'px';
+    newarea.style.minHeight = (height - insetBorder) + 'px';
+    newarea.style.minWidth  = (width  - insetBorder) + 'px';
 
     editor.appendChild(newarea);
 
