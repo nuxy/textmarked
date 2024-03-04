@@ -21,6 +21,8 @@ function TextMarked(textarea, settings) {
 
   (function() {
     if (settings?.options.length) {
+      self.selected = '';
+
       renderEditor();
     } else {
       throw new Error('Failed to initialize (missing settings)');
@@ -71,6 +73,7 @@ function TextMarked(textarea, settings) {
     const newarea = document.createElement('div');
     newarea.classList.add('textarea');
     newarea.addEventListener('keyup', keyboardEvent);
+    newarea.addEventListener('mouseup', textSelectionEvent);
     newarea.setAttribute('tabindex', actionTotal + 1);
     newarea.textContent = textarea.value;
 
@@ -110,6 +113,15 @@ function TextMarked(textarea, settings) {
     }
 
     event.target.textContent = cache;
+  }
+
+  /**
+   * Handle text selection events (mouseup).
+   * 
+   * @inheritdoc
+   */
+  function textSelectionEvent() {
+    self.selected = window.getSelection().toString();
   }
 }
 
