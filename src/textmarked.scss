@@ -73,6 +73,10 @@
       &.image {
         background-image: url('../images/image.svg');
       }
+
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 

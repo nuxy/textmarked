@@ -50,6 +50,7 @@ function TextMarked(textarea, settings) {
       const li = document.createElement('li');
       li.classList.add('icon');
       li.classList.add(name.toLowerCase());
+      li.setAttribute('title', name);
 
       ul.appendChild(li);
     }
