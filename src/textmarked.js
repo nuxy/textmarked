@@ -70,7 +70,9 @@ function TextMarked(textarea, settings) {
     // Create textarea alternative.
     const newarea = document.createElement('div');
     newarea.classList.add('textarea');
+    newarea.addEventListener('keyup', keyboardEvent);
     newarea.setAttribute('tabindex', actionTotal + 1);
+    newarea.textContent = textarea.value;
 
     const insetBorder = 12; // (border: 2px, padding: 4px) * 2
 
@@ -84,6 +86,30 @@ function TextMarked(textarea, settings) {
     // Hide original (use as cache).
     textarea.style.position   = 'absolute';
     textarea.style.visibility = 'hidden';
+  }
+
+  /**
+   * Handle keyboard events (keyup).
+   * 
+   * @inheritdoc
+   */
+  function keyboardEvent(event) {
+    const chars = settings?.allowKeys || `a-z0-9\\s,.?!$%&()"''`;
+
+    let cache = textarea.value;
+
+    if ((new RegExp(`^[${chars}]{1}$`, 'i')).test(event.key)) {
+
+      // .. append key value.
+      cache += event.key;
+
+    } else if (event.key === 'Backspace') {
+
+      // .. remove last value.
+      cache = cache.slice(0, -1);
+    }
+
+    event.target.textContent = cache;
   }
 }
 
