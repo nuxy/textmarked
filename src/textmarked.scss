@@ -18,6 +18,7 @@
       cursor: pointer;
       display: inline-block;
       height: 30px;
+      margin-left: 1px;
       width: 30px;
     }
   }
@@ -26,18 +27,35 @@
     .icon {
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 70%;
+      background-size: 60%;
+
+      &.heading {
+        background-image: url('../images/heading.svg');
+      }
 
       &.bold {
         background-image: url('../images/bold.svg');
+        background-size: 50%;
       }
 
       &.italic {
         background-image: url('../images/italic.svg');
+        background-size: 50%;
       }
 
       &.blockquote {
         background-image: url('../images/quotation.svg');
+        background-size: 80%;
+      }
+
+      &.ordered-list {
+        background-image: url('../images/list-ordered.svg');
+        background-size: 70%;
+      }
+
+      &.unordered-list {
+        background-image: url('../images/list-unordered.svg');
+        background-size: 70%;
       }
 
       &.code {
