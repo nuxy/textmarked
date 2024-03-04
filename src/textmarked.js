@@ -20,7 +20,7 @@ function TextMarked(textarea, settings) {
   const self = this;
 
   (function() {
-    if (settings?.elements.length) {
+    if (settings?.options.length) {
       renderEditor();
     } else {
       throw new Error('Failed to initialize (missing settings)');
@@ -31,7 +31,7 @@ function TextMarked(textarea, settings) {
    * Render a Markdown editor instance.
    */
   function renderEditor() {
-    const actionTotal = settings?.elements.length;
+    const actionTotal = settings?.options.length;
 
     const editor = document.createElement('div');
     editor.classList.add('textmarked');
@@ -50,7 +50,7 @@ function TextMarked(textarea, settings) {
     const buttonXY = Math.round(width / actionTotal);
 
     for (let i = 0; i < actionTotal; i++) {
-      const name = settings.elements[i];
+      const name = settings.options[i];
 
       const li = document.createElement('li');
       li.classList.add('icon');
