@@ -31,7 +31,7 @@ function TextMarked(textarea, settings) {
    * Render a Markdown editor instance.
    */
   function renderEditor() {
-    const elmTotal = settings?.elements.length;
+    const actionTotal = settings?.elements.length;
 
     const editor = document.createElement('div');
     editor.classList.add('textmarked');
@@ -43,22 +43,23 @@ function TextMarked(textarea, settings) {
     editor.style.height = height + 'px';
     editor.style.width  = width  + 'px';
 
-    // Create menu elements.
+    // Create button elements.
     const ul = document.createElement('ul');
     ul.classList.add('actions');
 
-    const colXY = Math.round(width / elmTotal);
+    const buttonXY = Math.round(width / actionTotal);
 
-    for (let i = 0; i < elmTotal; i++) {
+    for (let i = 0; i < actionTotal; i++) {
       const name = settings.elements[i];
 
-      // .. List elements.
       const li = document.createElement('li');
       li.classList.add('icon');
       li.classList.add(name);
       li.setAttribute('title', name);
-      li.style.height = colXY + 'px';
-      li.style.width  = colXY + 'px';
+
+      // .. dimensions.
+      li.style.height = buttonXY + 'px';
+      li.style.width  = buttonXY + 'px';
 
       ul.appendChild(li);
     }
