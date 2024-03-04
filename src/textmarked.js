@@ -55,6 +55,7 @@ function TextMarked(textarea, settings) {
       const li = document.createElement('li');
       li.classList.add('icon');
       li.classList.add(name);
+      li.setAttribute('tabindex', i + 1);
       li.setAttribute('title', name);
 
       // .. dimensions.
@@ -69,6 +70,7 @@ function TextMarked(textarea, settings) {
     // Create textarea alternative.
     const newarea = document.createElement('div');
     newarea.classList.add('textarea');
+    newarea.setAttribute('tabindex', actionTotal + 1);
 
     const insetBorder = 12; // (border: 2px, padding: 4px) * 2
 
