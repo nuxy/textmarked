@@ -81,7 +81,10 @@
     border: inset;
     border-width: 2px;
     cursor: text;
+    outline: none;
     overflow: scroll;
+    padding: 5px;
     resize: both;
+    white-space: wrap;
   }
 }

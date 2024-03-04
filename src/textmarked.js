@@ -70,7 +70,7 @@ function TextMarked(textarea, settings) {
     const newarea = document.createElement('div');
     newarea.classList.add('textarea');
 
-    const insetBorder = 2;
+    const insetBorder = 12; // (border: 2px, padding: 4px) * 2
 
     newarea.style.minHeight = (height - insetBorder) + 'px';
     newarea.style.minWidth  = (width  - insetBorder) + 'px';
