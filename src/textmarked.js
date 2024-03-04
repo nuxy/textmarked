@@ -55,7 +55,7 @@ function TextMarked(textarea, settings) {
       // .. List elements.
       const li = document.createElement('li');
       li.classList.add('icon');
-      li.classList.add(name.toLowerCase());
+      li.classList.add(name);
       li.setAttribute('title', name);
       li.style.height = colXY + 'px';
       li.style.width  = colXY + 'px';

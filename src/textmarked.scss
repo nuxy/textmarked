@@ -26,48 +26,48 @@
       background-repeat: no-repeat;
       background-size: 60%;
 
-      &.heading {
+      &.Heading {
         background-image: url('../images/heading.svg');
       }
 
-      &.bold {
+      &.Bold {
         background-image: url('../images/bold.svg');
         background-size: 50%;
       }
 
-      &.italic {
+      &.Italic {
         background-image: url('../images/italic.svg');
         background-size: 50%;
       }
 
-      &.blockquote {
+      &.Blockquote {
         background-image: url('../images/quotation.svg');
         background-size: 80%;
       }
 
-      &.ordered-list {
+      &.Ordered-List {
         background-image: url('../images/list-ordered.svg');
         background-size: 70%;
       }
 
-      &.unordered-list {
+      &.Unordered-List {
         background-image: url('../images/list-unordered.svg');
         background-size: 70%;
       }
 
-      &.code {
+      &.Code {
         background-image: url('../images/code.svg');
       }
 
-      &.horizontal-rule {
+      &.Horizontal-Rule {
         background-image: url('../images/line-dashed.svg');
       }
 
-      &.link {
+      &.Link {
         background-image: url('../images/link.svg');
       }
 
-      &.image {
+      &.Image {
         background-image: url('../images/image.svg');
       }
 
