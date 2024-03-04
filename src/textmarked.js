@@ -70,19 +70,21 @@ function TextMarked(textarea, settings) {
     editor.appendChild(ul);
 
     // Create textarea alternative.
-    const newarea = document.createElement('div');
-    newarea.classList.add('textarea');
-    newarea.addEventListener('keyup', keyboardEvent);
-    newarea.addEventListener('mouseup', textSelectionEvent);
-    newarea.setAttribute('tabindex', actionTotal + 1);
-    newarea.textContent = textarea.value;
+    const _textarea = document.createElement('div');
+    _textarea.classList.add('textarea');
+    _textarea.addEventListener('keyup', keyboardEvent);
+    _textarea.addEventListener('mouseup', textSelectionEvent);
+    _textarea.setAttribute('tabindex', actionTotal + 1);
+    _textarea.textContent = textarea.value;
 
     const insetBorder = 12; // (border: 2px, padding: 4px) * 2
 
-    newarea.style.minHeight = (height - insetBorder) + 'px';
-    newarea.style.minWidth  = (width  - insetBorder) + 'px';
+    _textarea.style.minHeight = (height - insetBorder) + 'px';
+    _textarea.style.minWidth  = (width  - insetBorder) + 'px';
 
-    editor.appendChild(newarea);
+    editor.appendChild(_textarea);
+
+    self._textarea = _textarea;
 
     textarea.parentNode.insertBefore(editor, textarea);
 
@@ -112,7 +114,7 @@ function TextMarked(textarea, settings) {
       cache = cache.slice(0, -1);
     }
 
-    event.target.textContent = cache;
+    event.target.textContent = textarea.value = cache;
   }
 
   /**
