@@ -34,10 +34,10 @@ function TextMarked(textarea, settings) {
    * Add listener to associated form.
    */
   function bindFormReset() {
-    textarea.form.addEventListener('reset', () => {
+    textarea.form.addEventListener('reset', function(event) {
 
       // Clear editor contents.
-      self._textarea.data = '';
+      event.target.querySelector('.textarea').textContent = '';
     });
   }
 
@@ -95,11 +95,9 @@ function TextMarked(textarea, settings) {
     _textarea.style.minWidth  = (width  - insetBorder) + 'px';
 
     _textarea.addEventListener('keydown', keyboardEvent);
-    _textarea.addEventListener('mouseup', textSelectionEvent);
+    _textarea.addEventListener('click', textSelectionEvent);
 
     editor.appendChild(_textarea);
-
-    self._textarea = _textarea;
 
     textarea.parentNode.insertBefore(editor, textarea);
 
@@ -136,7 +134,7 @@ function TextMarked(textarea, settings) {
 
     textarea.value = cache;
 
-    self._textarea.data = convertToMarkup(cache);
+    event.target.data = convertToMarkup(cache);
   }
 
   /**
@@ -172,21 +170,22 @@ function TextMarked(textarea, settings) {
 
     textarea.value = cache;
 
-    self._textarea.textContent = cache;
+    self.selection.target.textContent = cache;
   }
 
   /**
-   * Handle text selection events (mouseup).
+   * Handle text selection events (click).
    *
    * @inheritdoc
    */
-  function textSelectionEvent() {
+  function textSelectionEvent(event) {
     const selection = window.getSelection();
 
     self.selection = {
       start: selection.focusOffset,
       end: selection.anchorOffset,
-      value: selection.toString()
+      value: selection.toString(),
+      target: event.target
     }
   }
 
