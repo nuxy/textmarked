@@ -93,7 +93,7 @@ function TextMarked(textarea, settings) {
     _textarea.style.minHeight = (height - insetBorder) + 'px';
     _textarea.style.minWidth  = (width  - insetBorder) + 'px';
 
-    _textarea.addEventListener('keyup', keyboardEvent);
+    _textarea.addEventListener('keydown', keyboardEvent);
     _textarea.addEventListener('mouseup', textSelectionEvent);
 
     editor.appendChild(_textarea);
@@ -108,7 +108,7 @@ function TextMarked(textarea, settings) {
   }
 
   /**
-   * Handle keyboard events (keyup).
+   * Handle keyboard events (keydown).
    *
    * @inheritdoc
    */
