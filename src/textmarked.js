@@ -137,6 +137,15 @@ function TextMarked(textarea, settings) {
   }
 
   /**
+   * Handle text selection events (mouseup).
+   *
+   * @inheritdoc
+   */
+  function textSelectionEvent() {
+    self.selected = window.getSelection().toString();
+  }
+
+  /**
    * Convert Markdown to HTML equivalent.
    *
    * @param {String} value
@@ -146,15 +155,6 @@ function TextMarked(textarea, settings) {
    */
   function convertToMarkup(value) {
     return value.replace(/\n/gm, '<br />'); // Newline
-  }
-
-  /**
-   * Handle text selection events (mouseup).
-   *
-   * @inheritdoc
-   */
-  function textSelectionEvent() {
-    self.selected = window.getSelection().toString();
   }
 }
 
