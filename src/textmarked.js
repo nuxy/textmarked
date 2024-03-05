@@ -107,7 +107,7 @@ function TextMarked(textarea, settings) {
 
   /**
    * Handle keyboard events (keyup).
-   * 
+   *
    * @inheritdoc
    */
   function keyboardEvent(event) {
@@ -120,18 +120,37 @@ function TextMarked(textarea, settings) {
       // .. append key value.
       cache += event.key;
 
+    } else if (event.key === 'Enter' && settings?.allowEnter) {
+
+      // .. append a newline.
+      cache += '\n';
+
     } else if (event.key === 'Backspace') {
 
       // .. remove last value.
       cache = cache.slice(0, -1);
     }
 
-    event.target.textContent = textarea.value = cache;
+    textarea.value = cache;
+
+    self._textarea.innerHTML = convertToMarkup(cache);
+  }
+
+  /**
+   * Convert Markdown to HTML equivalent.
+   *
+   * @param {String} value
+   *   Text string to process.
+   *
+   * @return {String}
+   */
+  function convertToMarkup(value) {
+    return value.replace(/\n/gm, '<br />'); // Newline
   }
 
   /**
    * Handle text selection events (mouseup).
-   * 
+   *
    * @inheritdoc
    */
   function textSelectionEvent() {
