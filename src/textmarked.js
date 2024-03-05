@@ -37,7 +37,7 @@ function TextMarked(textarea, settings) {
     textarea.form.addEventListener('reset', () => {
 
       // Clear editor contents.
-      self._textarea.textContent = '';
+      self._textarea.data = '';
     });
   }
 
@@ -84,8 +84,7 @@ function TextMarked(textarea, settings) {
     // Create textarea alternative.
     const _textarea = document.createElement('div');
     _textarea.classList.add('textarea');
-    _textarea.addEventListener('keyup', keyboardEvent);
-    _textarea.addEventListener('mouseup', textSelectionEvent);
+    _textarea.setAttribute('contenteditable', 'true');
     _textarea.setAttribute('tabindex', actionTotal + 1);
     _textarea.textContent = textarea.value;
 
@@ -93,6 +92,9 @@ function TextMarked(textarea, settings) {
 
     _textarea.style.minHeight = (height - insetBorder) + 'px';
     _textarea.style.minWidth  = (width  - insetBorder) + 'px';
+
+    _textarea.addEventListener('keyup', keyboardEvent);
+    _textarea.addEventListener('mouseup', textSelectionEvent);
 
     editor.appendChild(_textarea);
 
@@ -133,7 +135,7 @@ function TextMarked(textarea, settings) {
 
     textarea.value = cache;
 
-    self._textarea.innerHTML = convertToMarkup(cache);
+    self._textarea.data = convertToMarkup(cache);
   }
 
   /**
