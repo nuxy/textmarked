@@ -17,3 +17,12 @@ form input[type=reset] {
   display: block;
   margin: 50px auto;
 }
+
+/**
+ * Debug cache.
+ */
+#editor {
+  position: relative !important;
+  top: 50px;
+  visibility: visible !important;
+}
