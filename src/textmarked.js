@@ -21,7 +21,7 @@ function TextMarked(textarea, settings) {
 
   (function() {
     if (settings?.options.length) {
-      self.selected = '';
+      self.selection = {};
 
       bindFormReset();
       renderEditor();
@@ -144,7 +144,13 @@ function TextMarked(textarea, settings) {
    * @inheritdoc
    */
   function textSelectionEvent() {
-    self.selected = window.getSelection().toString();
+    const selection = window.getSelection();
+
+    self.selection = {
+      start: selection.focusOffset,
+      end: selection.anchorOffset,
+      value: selection.toString()
+    }
   }
 
   /**
