@@ -23,11 +23,23 @@ function TextMarked(textarea, settings) {
     if (settings?.options.length) {
       self.selected = '';
 
+      bindFormReset();
       renderEditor();
     } else {
       throw new Error('Failed to initialize (missing settings)');
     }
   })();
+
+  /**
+   * Add listener to associated form.
+   */
+  function bindFormReset() {
+    textarea.form.addEventListener('reset', () => {
+
+      // Clear editor contents.
+      self._textarea.textContent = '';
+    });
+  }
 
   /**
    * Render a Markdown editor instance.

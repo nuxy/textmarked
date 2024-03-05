@@ -12,3 +12,8 @@ form label {
   display: block;
   margin-bottom: 5px;
 }
+
+form input[type=reset] {
+  display: block;
+  margin: 50px auto;
+}
