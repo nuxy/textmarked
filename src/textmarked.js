@@ -45,7 +45,7 @@ function TextMarked(textarea, settings) {
    * Render a Markdown editor instance.
    */
   function renderEditor() {
-    const actionTotal = settings?.options.length;
+    const optionsTotal = settings?.options.length;
 
     const editor = document.createElement('div');
     editor.classList.add('textmarked');
@@ -59,11 +59,11 @@ function TextMarked(textarea, settings) {
 
     // Create button elements.
     const ul = document.createElement('ul');
-    ul.classList.add('actions');
+    ul.classList.add('options');
 
-    const buttonXY = Math.round(width / actionTotal);
+    const buttonXY = Math.round(width / optionsTotal);
 
-    for (let i = 0; i < actionTotal; i++) {
+    for (let i = 0; i < optionsTotal; i++) {
       const name = settings.options[i];
 
       const li = document.createElement('li');
@@ -86,7 +86,7 @@ function TextMarked(textarea, settings) {
     const _textarea = document.createElement('div');
     _textarea.classList.add('textarea');
     _textarea.setAttribute('contenteditable', 'true');
-    _textarea.setAttribute('tabindex', actionTotal + 1);
+    _textarea.setAttribute('tabindex', optionsTotal + 1);
     _textarea.textContent = textarea.value;
 
     const insetBorder = 12; // (border: 2px, padding: 4px) * 2
