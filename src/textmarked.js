@@ -72,9 +72,10 @@ function TextMarked(textarea, settings) {
       li.setAttribute('tabindex', i + 1);
       li.setAttribute('title', name);
 
-      // .. dimensions.
       li.style.height = buttonXY + 'px';
       li.style.width  = buttonXY + 'px';
+
+      li.addEventListener('click', buttonEvent);
 
       ul.appendChild(li);
     }
@@ -136,6 +137,42 @@ function TextMarked(textarea, settings) {
     textarea.value = cache;
 
     self._textarea.data = convertToMarkup(cache);
+  }
+
+  /**
+   * Handle button events (click).
+   *
+   * @inheritdoc
+   */
+  function buttonEvent(event) {
+    const {start, end, value} = self.selection;
+
+    let markdown;
+
+    switch (event.target.title) {
+      case 'Bold':
+        markdown = '**' + value + '**';
+      break;
+
+      case 'Italic':
+        markdown = '_' + value + '_';
+      break;
+
+      case 'Code':
+        markdown = '`' + value + '`';
+      break;
+    }
+
+    let cache = textarea.value;
+
+    // Wrap selection in Markdown.
+    cache = cache.split('');
+    cache.splice(start, (end - start), markdown);
+    cache = cache.join('');
+
+    textarea.value = cache;
+
+    self._textarea.textContent = cache;
   }
 
   /**
