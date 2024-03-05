@@ -78,13 +78,20 @@
   }
 
   .textarea {
-    border: inset;
-    border-width: 2px;
+    border: solid;
+    border-width: 1px;
     cursor: text;
+    font-family: monospace;
     outline: none;
     overflow: scroll;
-    padding: 5px;
+    padding: 6px;
     resize: both;
-    white-space: wrap;
+    white-space: normal;
+
+    &:focus {
+      border: inset;
+      border-width: 2px;
+      padding: 5px;
+    }
   }
 }
