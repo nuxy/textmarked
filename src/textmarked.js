@@ -144,7 +144,7 @@ function TextMarked(textarea, settings) {
    * @inheritdoc
    */
   function buttonEvent(event) {
-    const {start, end, value} = self.selection;
+    const {node, start, end, value} = self.selection;
     const {target} = event;
 
     let markdown;
@@ -163,16 +163,12 @@ function TextMarked(textarea, settings) {
       break;
     }
 
-    let cache = textarea.value;
+    // Wrap selected text in Markdown.
+    const fullText = node.data.split('');
+    fullText.splice(start, (end - start), markdown);
+    node.data = fullText.join('');
 
-    // Wrap selection in Markdown.
-    cache = cache.split('');
-    cache.splice(start, (end - start), markdown);
-    cache = cache.join('');
-
-    textarea.value = cache;
-
-    self.selection.target.textContent = cache;
+    textarea.value = node?.parentNode?.parentNode.innerText;
   }
 
   /**
@@ -180,14 +176,21 @@ function TextMarked(textarea, settings) {
    *
    * @inheritdoc
    */
-  function textSelectionEvent(event) {
+  function textSelectionEvent() {
     const selection = window.getSelection();
 
-    self.selection = {
-      start: selection.focusOffset,
-      end: selection.anchorOffset,
-      value: selection.toString(),
-      target: event.target
+    if (selection) {
+      const {focusNode, focusOffset, anchorOffset} = selection;
+
+      self.selection = {
+        node: focusNode,
+
+        // .. inverted selections.
+        start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
+        end:   (focusOffset < anchorOffset) ? anchorOffset : focusOffset,
+
+        value: selection.toString()
+      };
     }
   }
 
