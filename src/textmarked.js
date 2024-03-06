@@ -21,7 +21,7 @@ function TextMarked(textarea, settings) {
 
   (function() {
     if (settings?.options.length) {
-      self.selection = {};
+      self.selection = null;
 
       bindFormReset();
       renderEditor();
@@ -144,7 +144,13 @@ function TextMarked(textarea, settings) {
    * @inheritdoc
    */
   function buttonEvent(event) {
-    const {node, start, end, value} = self.selection;
+    const selection = self.selection;
+
+    if (!selection) {
+      return;
+    }
+
+    const {node, start, end, value} = selection;
     const {target} = event;
 
     let markdown;
@@ -168,7 +174,9 @@ function TextMarked(textarea, settings) {
     fullText.splice(start, (end - start), markdown);
     node.data = fullText.join('');
 
-    textarea.value = node?.parentNode?.parentNode.innerText;
+    self.selection = null;
+
+    textarea.value = node.parentNode.parentNode.innerText;
   }
 
   /**
@@ -179,19 +187,21 @@ function TextMarked(textarea, settings) {
   function textSelectionEvent() {
     const selection = window.getSelection();
 
-    if (selection) {
-      const {focusNode, focusOffset, anchorOffset} = selection;
-
-      self.selection = {
-        node: focusNode,
-
-        // .. inverted selections.
-        start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
-        end:   (focusOffset < anchorOffset) ? anchorOffset : focusOffset,
-
-        value: selection.toString()
-      };
+    if (!selection) {
+      return;
     }
+
+    const {focusNode, focusOffset, anchorOffset} = selection;
+
+    self.selection = {
+      node: focusNode,
+
+      // .. inverted selections.
+      start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
+      end:   (focusOffset < anchorOffset) ? anchorOffset : focusOffset,
+
+      value: selection.toString()
+    };
   }
 
   /**
