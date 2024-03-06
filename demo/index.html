@@ -25,7 +25,7 @@
           ]
         };
 
-        var textarea = document.getElementById('editor');
+        var textarea = document.getElementById('comments');
 
         textMarked(textarea, settings);
       };
@@ -36,9 +36,9 @@
   <body>
     <form>
       <fieldset>
-        <label for="editor">Comments</label>
+        <label for="comments">Comments</label>
 
-        <textarea id="editor" name="comments" cols="50" rows="10" readonly></textarea>
+        <textarea id="comments" name="comments" cols="50" rows="10" placeholder="Cache" readonly></textarea>
       </fieldset>
 
       <input type="Reset" />

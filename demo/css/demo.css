@@ -21,7 +21,8 @@ form input[type=reset] {
 /**
  * Debug cache.
  */
-#editor {
+#comments {
+  opacity: 0.5;
   position: relative !important;
   top: 50px;
   visibility: visible !important;
