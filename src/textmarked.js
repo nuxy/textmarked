@@ -21,8 +21,6 @@ function TextMarked(textarea, settings) {
 
   (function() {
     if (settings?.options.length) {
-      self.selection = null;
-
       bindFormReset();
       renderEditor();
     } else {
