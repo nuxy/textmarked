@@ -134,9 +134,12 @@ function TextMarked(textarea, settings) {
    * @inheritdoc
    */
   function keyUpEvent(event) {
+    const {target} = event;
 
     // Sync changes w/ cache.
-    textarea.value = event.target.innerText;
+    textarea.value = target.innerText;
+
+    target.click();
   }
 
   /**
@@ -179,7 +182,7 @@ function TextMarked(textarea, settings) {
     }
 
     // Wrap selected text in Markdown.
-    node.data = replaceInStr(node.data, start, end, markdown);
+    node.textContent = replaceInStr(node.textContent, start, end, markdown);
 
     textarea.value = self.content.innerText;
 
