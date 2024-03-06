@@ -13,7 +13,7 @@ describe('Editor textarea', function() {
 
   describe('Content', function() {
     it('should contain attributes', async function() {
-      const textarea = await editor.$('.textarea');
+      const textarea = await editor.$('.content');
 
       await expect(textarea).toHaveAttribute('contenteditable', 'true', {
         message: `Attribute contenteditable="true" is defined`
@@ -25,7 +25,7 @@ describe('Editor textarea', function() {
     });
 
     it('should handle events', async function() {
-      const textarea = await editor.$('.textarea');
+      const textarea = await editor.$('.content');
 
       await expect(textarea).toBeClickable();
     });

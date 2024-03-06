@@ -37,7 +37,7 @@ function TextMarked(textarea, settings) {
     textarea.form.addEventListener('reset', function() {
 
       // Clear editor contents.
-      this.querySelector('.textarea').textContent = '';
+      this.querySelector('.content').textContent = '';
     });
   }
 
@@ -84,7 +84,7 @@ function TextMarked(textarea, settings) {
 
     // Create textarea alternative.
     const _textarea = document.createElement('div');
-    _textarea.classList.add('textarea');
+    _textarea.classList.add('content');
     _textarea.setAttribute('contenteditable', 'true');
     _textarea.setAttribute('tabindex', optionsTotal + 1);
     _textarea.textContent = textarea.value;
