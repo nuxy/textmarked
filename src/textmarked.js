@@ -156,12 +156,20 @@ function TextMarked(textarea, settings) {
     let markdown;
 
     switch (target.title) {
+      case 'Heading':
+        markdown = '# ' + value;
+      break;
+
       case 'Bold':
         markdown = '**' + value + '**';
       break;
 
       case 'Italic':
         markdown = '_' + value + '_';
+      break;
+
+      case 'Blockquote':
+        markdown = '> ' + value;
       break;
 
       case 'Code':
