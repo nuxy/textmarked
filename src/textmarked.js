@@ -35,7 +35,7 @@ function TextMarked(textarea, settings) {
     textarea.form.addEventListener('reset', function() {
 
       // Clear editor contents.
-      this.querySelector('.content').textContent = '';
+      self.content.textContent = '';
     });
   }
 
@@ -96,6 +96,8 @@ function TextMarked(textarea, settings) {
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('click', textSelectionEvent);
 
+    self.content = _textarea;
+
     editor.appendChild(_textarea);
 
     textarea.parentNode.insertBefore(editor, textarea);
@@ -118,6 +120,7 @@ function TextMarked(textarea, settings) {
 
       // Sync changes w/ cache.
       textarea.value = target.innerText;
+
     } else {
 
       // Disable unsupported.
@@ -178,9 +181,9 @@ function TextMarked(textarea, settings) {
     // Wrap selected text in Markdown.
     node.data = replaceInStr(node.data, start, end, markdown);
 
-    self.selection = null;
+    textarea.value = self.content.innerText;
 
-    textarea.value = node.parentNode.parentNode.innerText;
+    self.selection = null;
   }
 
   /**
