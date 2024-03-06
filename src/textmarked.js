@@ -85,7 +85,7 @@ function TextMarked(textarea, settings) {
     _textarea.classList.add('content');
     _textarea.setAttribute('contenteditable', 'true');
     _textarea.setAttribute('tabindex', optionsTotal + 1);
-    _textarea.textContent = textarea.value;
+    _textarea.innerText = textarea.value;
 
     const insetBorder = 12; // (border: 2px, padding: 4px) * 2
 
