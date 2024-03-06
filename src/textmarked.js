@@ -179,6 +179,18 @@ function TextMarked(textarea, settings) {
       case 'Code':
         markdown = '`' + value + '`';
       break;
+
+      case 'Horizontal-Rule':
+        markdown = '---';
+      break;
+
+      case 'Link':
+        markdown = '[' + value + '](url)';
+      break;
+
+      case 'Image':
+        markdown = '![' + value + '](url)';
+      break;
     }
 
     // Wrap selected text in Markdown.
