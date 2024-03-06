@@ -94,7 +94,8 @@ function TextMarked(textarea, settings) {
     _textarea.style.minHeight = (height - insetBorder) + 'px';
     _textarea.style.minWidth  = (width  - insetBorder) + 'px';
 
-    _textarea.addEventListener('keydown', keyboardEvent);
+    _textarea.addEventListener('keydown', keyDownEvent);
+    _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('click', textSelectionEvent);
 
     editor.appendChild(_textarea);
@@ -107,35 +108,34 @@ function TextMarked(textarea, settings) {
   }
 
   /**
-   * Handle keyboard events (keydown).
+   * Handle key events (keydown).
    *
    * @inheritdoc
    */
-  function keyboardEvent(event) {
+  function keyDownEvent(event) {
     const chars = settings?.allowKeys || `a-z0-9\\s,.?!$%&()"''`;
-    const {key} = event;
+    const {key, target} = event;
 
-    let cache = textarea.value;
+    if ((new RegExp(`^[${chars}]{1}$`, 'i').test(key)) || key === 'Backspace' || (key === 'Enter' && settings?.allowEnter)) {
 
-    if ((new RegExp(`^[${chars}]{1}$`, 'i')).test(key)) {
+      // Sync changes w/ cache.
+      textarea.value = target.innerText;
+    } else {
 
-      // .. append key value.
-      cache += key;
-
-    } else if (key === 'Enter' && settings?.allowEnter) {
-
-      // .. append a newline.
-      cache += '\n';
-
-    } else if (key === 'Backspace') {
-
-      // .. remove last value.
-      cache = cache.slice(0, -1);
+      // Disable unsupported.
+      return event.preventDefault();
     }
+  }
 
-    textarea.value = cache;
+  /**
+   * Handle key events (keyup).
+   *
+   * @inheritdoc
+   */
+  function keyUpEvent(event) {
 
-    event.target.data = convertToMarkup(cache);
+    // Sync changes w/ cache.
+    textarea.value = event.target.innerText;
   }
 
   /**
