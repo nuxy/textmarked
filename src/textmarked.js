@@ -178,9 +178,7 @@ function TextMarked(textarea, settings) {
     }
 
     // Wrap selected text in Markdown.
-    const fullText = node.data.split('');
-    fullText.splice(start, (end - start), markdown);
-    node.data = fullText.join('');
+    node.data = replaceInStr(node.data, start, end, markdown);
 
     self.selection = null;
 
@@ -194,10 +192,6 @@ function TextMarked(textarea, settings) {
    */
   function textSelectionEvent() {
     const selection = window.getSelection();
-
-    if (!selection) {
-      return;
-    }
 
     const {focusNode, focusOffset, anchorOffset} = selection;
 
@@ -222,6 +216,30 @@ function TextMarked(textarea, settings) {
    */
   function convertToMarkup(value) {
     return value.replace(/\n/gm, '<br />'); // Newline
+  }
+
+  /**
+   * Replace value in a text string.
+   *
+   * @param {String} str
+   *   Text string to process.
+   *
+   * @param {Number} start
+   *   Start character position.
+   *
+   * @param {Number} end
+   *   End character position.
+   *
+   * @param {String} value
+   *   String replacement value.
+   *
+   * @return {String}
+   */
+  function replaceInStr(str = '', start = 0, end = 0, value = '') {
+    const chars = str.split('');
+    const count = (end - start);
+    chars.splice(start, count, value);
+    return chars.join('');
   }
 }
 
