@@ -113,20 +113,21 @@ function TextMarked(textarea, settings) {
    */
   function keyboardEvent(event) {
     const chars = settings?.allowKeys || `a-z0-9\\s,.?!$%&()"''`;
+    const {key} = event;
 
     let cache = textarea.value;
 
-    if ((new RegExp(`^[${chars}]{1}$`, 'i')).test(event.key)) {
+    if ((new RegExp(`^[${chars}]{1}$`, 'i')).test(key)) {
 
       // .. append key value.
-      cache += event.key;
+      cache += key;
 
-    } else if (event.key === 'Enter' && settings?.allowEnter) {
+    } else if (key === 'Enter' && settings?.allowEnter) {
 
       // .. append a newline.
       cache += '\n';
 
-    } else if (event.key === 'Backspace') {
+    } else if (key === 'Backspace') {
 
       // .. remove last value.
       cache = cache.slice(0, -1);
@@ -144,10 +145,11 @@ function TextMarked(textarea, settings) {
    */
   function buttonEvent(event) {
     const {start, end, value} = self.selection;
+    const {target} = event;
 
     let markdown;
 
-    switch (event.target.title) {
+    switch (target.title) {
       case 'Bold':
         markdown = '**' + value + '**';
       break;
