@@ -34,10 +34,10 @@ function TextMarked(textarea, settings) {
    * Add listener to associated form.
    */
   function bindFormReset() {
-    textarea.form.addEventListener('reset', function(event) {
+    textarea.form.addEventListener('reset', function() {
 
       // Clear editor contents.
-      event.target.querySelector('.textarea').textContent = '';
+      this.querySelector('.textarea').textContent = '';
     });
   }
 
