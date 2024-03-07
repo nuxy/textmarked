@@ -194,11 +194,11 @@ function TextMarked(textarea, settings) {
           break;
 
           case 'Bold':
-            markdown = '**' + value + '**';
+            markdown = '**' + (value || ' ') + '**';
           break;
 
           case 'Italic':
-            markdown = '_' + value + '_';
+            markdown = '_' + (value || ' ') + '_';
           break;
 
           case 'Blockquote':
@@ -214,7 +214,7 @@ function TextMarked(textarea, settings) {
           break;
 
           case 'Code':
-            markdown = '`' + value + '`';
+            markdown = '`' + (value || ' ') + '`';
           break;
 
           case 'Horizontal-Rule':
@@ -222,11 +222,11 @@ function TextMarked(textarea, settings) {
           break;
 
           case 'Link':
-            markdown = '[' + value + '](url)';
+            markdown = '[' + (value || 'title') + '](https://www.example.com)';
           break;
 
           case 'Image':
-            markdown = '![' + value + '](url)';
+            markdown = '![' + (value || 'alt text') + '](image.jpg)';
           break;
         }
       }
