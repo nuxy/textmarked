@@ -59,7 +59,7 @@ function TextMarked(textarea, settings) {
     const ul = document.createElement('ul');
     ul.classList.add('options');
 
-    const buttonXY = Math.round(width / optionsTotal);
+    const buttonXY = Math.round((width - (optionsTotal * 2)) / optionsTotal);
 
     for (let i = 0; i < optionsTotal; i++) {
       const name = settings.options[i];
