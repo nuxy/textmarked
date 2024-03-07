@@ -27,7 +27,8 @@
 
         var textarea = document.getElementById('comments');
 
-        textMarked(textarea, settings);
+        const {content} = textMarked(textarea, settings);
+        content.focus();
       };
     </script>
 
