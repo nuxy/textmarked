@@ -157,44 +157,84 @@ function TextMarked(textarea, settings) {
     const {node, start, end, value} = selection;
     const {target} = event;
 
-    let markdown;
+    let counter = 1;
 
-    switch (target.title) {
-      case 'Heading':
-        markdown = '# ' + value;
-      break;
+    // Apply Markdown to selected text.
+    for (let i = 0; i < node.length; i++) {
+      const item = node[i];
 
-      case 'Bold':
-        markdown = '**' + value + '**';
-      break;
+      let markdown;
 
-      case 'Italic':
-        markdown = '_' + value + '_';
-      break;
+      if (node.length > 1) {
 
-      case 'Blockquote':
-        markdown = '> ' + value;
-      break;
+        // .. multi-line selection.
+        switch (target.title) {
+          case 'Blockquote':
+            markdown = '> ' + item.textContent;
+          break;
 
-      case 'Code':
-        markdown = '`' + value + '`';
-      break;
+          case 'Ordered-List':
+            markdown = `${counter++}. ` + item.textContent;
+          break;
 
-      case 'Horizontal-Rule':
-        markdown = '---';
-      break;
+          case 'Unordered-List':
+            markdown = '- ' + item.textContent;
+          break;
 
-      case 'Link':
-        markdown = '[' + value + '](url)';
-      break;
+          default:
+            markdown = item.textContent;
+        }
 
-      case 'Image':
-        markdown = '![' + value + '](url)';
-      break;
+      } else {
+
+        // .. focused selection.
+        switch (target.title) {
+          case 'Heading':
+            markdown = '# ' + value;
+          break;
+
+          case 'Bold':
+            markdown = '**' + value + '**';
+          break;
+
+          case 'Italic':
+            markdown = '_' + value + '_';
+          break;
+
+          case 'Blockquote':
+            markdown = '> ' + value;
+          break;
+
+          case 'Ordered-List':
+            markdown = `1. ` + value;
+          break;
+
+          case 'Unordered-List':
+            markdown = '- ' + value;
+          break;
+
+          case 'Code':
+            markdown = '`' + value + '`';
+          break;
+
+          case 'Horizontal-Rule':
+            markdown = '---';
+          break;
+
+          case 'Link':
+            markdown = '[' + value + '](url)';
+          break;
+
+          case 'Image':
+            markdown = '![' + value + '](url)';
+          break;
+        }
+      }
+
+      item.textContent = (item.tagName !== 'DIV')
+        ? replaceInStr(item.textContent, start, end, markdown)
+        : markdown;
     }
-
-    // Wrap selected text in Markdown.
-    node.textContent = replaceInStr(node.textContent, start, end, markdown);
 
     textarea.value = self.content.innerText;
 
@@ -209,10 +249,35 @@ function TextMarked(textarea, settings) {
   function textSelectionEvent() {
     const selection = window.getSelection();
 
-    const {focusNode, focusOffset, anchorOffset} = selection;
+    const {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
+
+    const contents = self.content.childNodes;
+    const nodeList = [];
+
+    let isRange = false;
+
+    // Extract range of #text nodes.
+    for (let i = 0; i < contents.length; i++) {
+      const node = contents[i];
+
+      let item = (node.tagName === 'DIV')
+        ? node.lastChild : node
+
+      if (item === focusNode) {
+        isRange = true;
+      }
+
+      if (isRange) {
+        nodeList.push(item);
+      }
+
+      if (item === anchorNode) {
+        isRange = false;
+      }
+    }
 
     self.selection = {
-      node: focusNode,
+      node: (nodeList.length) ? nodeList : [focusNode],
 
       // .. inverted selections.
       start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
