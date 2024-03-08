@@ -1,6 +1,6 @@
 # textmarked
 
-Enable Markdown editor in HTML `<textarea />`. :warning: Work In Progress :warning:
+Enable Markdown editing in HTML `<textarea />`. :warning: Work In Progress :warning:
 
 ## Usage
 
@@ -67,6 +67,16 @@ content.focus();
 [Heading](https://www.markdownguide.org/basic-syntax/#headings), [Bold](https://www.markdownguide.org/basic-syntax/#bold), [Italic](https://www.markdownguide.org/basic-syntax/#italic),
 [Blockquote](https://www.markdownguide.org/basic-syntax/#blockquotes-1), [Ordered-List](https://www.markdownguide.org/basic-syntax/#ordered-lists), [Unordered-List](https://www.markdownguide.org/basic-syntax/#unordered-lists), [Code](https://www.markdownguide.org/basic-syntax/#code), [Horizontal-Rule](https://www.markdownguide.org/basic-syntax/#horizontal-rules), [Link](https://www.markdownguide.org/basic-syntax/#links), [Image](https://www.markdownguide.org/basic-syntax/#images-1)
 
+## Editor settings
+
+Overriding defaults can be done using the following options:
+
+| Key        | Description                     | Type    | Default |
+|------------|---------------------------------|---------|---------|
+| allowKeys  | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`> |
+| allowEnter | Allow keyboard carriage return. | Boolean | false |
+| options    | List of [Supported elements](#supported-elements). | Array | **all elements** |
+
 ## Developers
 
 ### CLI options
@@ -87,3 +97,19 @@ Run [WebdriverIO](https://webdriver.io) E2E tests:
 
 - [Markdown basic Syntax](https://www.markdownguide.org/cheat-sheet/#basic-syntax)
 - [Lineicons project](https://github.com/LineiconsHQ/Lineicons)
+
+## Versioning
+
+This package is maintained under the [Semantic Versioning](https://semver.org) guidelines.
+
+## License and Warranty
+
+This package is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose.
+
+_textmarked_ is provided under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php)
+
+[Amazon S3](https://aws.amazon.com/s3) is a registered trademark of Amazon Web Services, Inc.
+
+## Author
+
+[Marc S. Brooks](https://github.com/nuxy)
