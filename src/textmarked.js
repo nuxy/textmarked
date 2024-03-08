@@ -16,10 +16,17 @@
  * @param {Object} settings
  *   Editor settings.
  */
-function TextMarked(textarea, settings) {
+function TextMarked(textarea, settings = {}) {
   const self = this;
 
+  const defaults = {
+    allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
+    allowEnter: false
+  };
+
   (function() {
+    settings = Object.assign(defaults, settings);
+
     if (settings?.options.length) {
       bindFormReset();
       renderEditor();
@@ -120,7 +127,7 @@ function TextMarked(textarea, settings) {
    * @inheritdoc
    */
   function keyDownEvent(event) {
-    const chars = settings?.allowKeys || `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`;
+    const chars = settings?.allowKeys;
     const {key, target} = event;
 
     if ((new RegExp(`^[${chars}]{1}$`, 'i').test(key)) || key === 'Backspace' || (key === 'Enter' && settings?.allowEnter)) {
