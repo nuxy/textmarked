@@ -58,6 +58,8 @@ function TextMarked(textarea, settings) {
     // Create button elements.
     const ul = document.createElement('ul');
     ul.classList.add('options');
+    ul.setAttribute('aria-label', 'Markdown options');
+    ul.setAttribute('role', 'menu');
 
     const buttonXY = Math.round((width - (optionsTotal * 2)) / optionsTotal);
 
@@ -67,6 +69,8 @@ function TextMarked(textarea, settings) {
       const li = document.createElement('li');
       li.classList.add('icon');
       li.classList.add(name);
+      li.setAttribute('aria-label', name);
+      li.setAttribute('role', 'button');
       li.setAttribute('tabindex', i + 1);
       li.setAttribute('title', name);
 
@@ -84,6 +88,8 @@ function TextMarked(textarea, settings) {
     const _textarea = document.createElement('div');
     _textarea.classList.add('content');
     _textarea.setAttribute('contenteditable', 'true');
+    _textarea.setAttribute('aria-label', 'Content editor');
+    _textarea.setAttribute('role', 'textbox');
     _textarea.setAttribute('tabindex', optionsTotal + 1);
     _textarea.innerText = textarea.value;
 

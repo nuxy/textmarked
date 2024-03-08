@@ -22,6 +22,14 @@ describe('Editor textarea', function() {
       await expect(textarea).toHaveAttribute('tabindex', '11', {
         message: `Attribute tabindex="11" is defined`
       });
+
+      await expect(textarea).toHaveAttribute('aria-label', 'Content editor', {
+        message: 'Attribute aria-label="Content editor" is defined'
+      });
+
+      await expect(textarea).toHaveAttribute('role', 'textbox', {
+        message: 'Attribute role="textbox" is defined'
+      });
     });
 
     it('should handle events', async function() {

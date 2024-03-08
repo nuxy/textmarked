@@ -77,6 +77,14 @@ describe('Editor options', function() {
         await expect(button).toHaveAttribute('title', optName, {
           message: `Attribute title="${optName}" is defined`
         });
+
+        await expect(button).toHaveAttribute('aria-label', optName, {
+          message: `Attribute aria-label="${optName}" is defined`
+        });
+
+        await expect(button).toHaveAttribute('role', 'button', {
+          message: 'Attribute role="button" is defined'
+        });
       }
     });
 
