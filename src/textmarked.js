@@ -238,11 +238,10 @@ function TextMarked(textarea, settings) {
         }
       }
 
-      item.textContent = (item.tagName !== 'DIV')
-        ? replaceInStr(item.textContent, start, end, markdown)
-        : markdown;
+      item.textContent = replaceInStr(item.textContent, start, end, markdown);
     }
 
+    // Sync changes w/ cache.
     textarea.value = self.content.innerText;
 
     self.selection = null;
@@ -274,7 +273,7 @@ function TextMarked(textarea, settings) {
         isRange = true;
       }
 
-      if (isRange) {
+      if (node.tagName !== 'BR' && isRange) {
         nodeList.push(item);
       }
 
