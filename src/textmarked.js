@@ -267,7 +267,7 @@ function TextMarked(textarea, settings) {
       const node = contents[i];
 
       let item = (node.tagName === 'DIV')
-        ? node.lastChild : node
+        ? node.firstChild : node
 
       if (item === focusNode) {
         isRange = true;
