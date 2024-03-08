@@ -119,7 +119,7 @@ function TextMarked(textarea, settings) {
    * @inheritdoc
    */
   function keyDownEvent(event) {
-    const chars = settings?.allowKeys || `a-z0-9\\s,.?!$%&()"''`;
+    const chars = settings?.allowKeys || `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`;
     const {key, target} = event;
 
     if ((new RegExp(`^[${chars}]{1}$`, 'i').test(key)) || key === 'Backspace' || (key === 'Enter' && settings?.allowEnter)) {

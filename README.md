@@ -40,7 +40,7 @@ const textMarked = new TextMarked(textarea, settings);
 
 ```javascript
 const settings = {
-  allowKeys: `a-z0-9\\s,.?!$%&()"'`,
+  allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
   allowEnter: true,
   options: [
     'Heading',
