@@ -74,7 +74,7 @@ content.focus();
 Overriding defaults can be done using the following options:
 
 | Key        | Description                     | Type    | Default |
-|------------|------------------------------- -|---------|---------|
+|------------|---------------------------------|---------|---------|
 | allowKeys  | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`> |
 | allowEnter | Allow keyboard carriage return. | Boolean | false |
 | clipboard  | Allow clipboard functionality.  | Boolean | false |
