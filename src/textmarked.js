@@ -177,19 +177,19 @@ function TextMarked(textarea, settings) {
         // .. multi-line selection.
         switch (target.title) {
           case 'Blockquote':
-            markdown = '> ' + item.textContent;
+            markdown = '> ' + item.data;
           break;
 
           case 'Ordered-List':
-            markdown = `${counter++}. ` + item.textContent;
+            markdown = `${counter++}. ` + item.data;
           break;
 
           case 'Unordered-List':
-            markdown = '- ' + item.textContent;
+            markdown = '- ' + item.data;
           break;
 
           default:
-            markdown = item.textContent;
+            markdown = item.data;
         }
 
       } else {
