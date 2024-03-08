@@ -21,7 +21,8 @@ function TextMarked(textarea, settings = {}) {
 
   const defaults = {
     allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
-    allowEnter: false
+    allowEnter: false,
+    clipboard: false
   };
 
   (function() {
@@ -108,6 +109,8 @@ function TextMarked(textarea, settings = {}) {
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('click', textSelectionEvent);
+    _textarea.addEventListener('copy', clipboardCopyEvent);
+    _textarea.addEventListener('cut', clipboardCopyEvent);
     _textarea.addEventListener('paste', clipboardPasteEvent);
 
     self.content = _textarea;
@@ -301,6 +304,17 @@ function TextMarked(textarea, settings = {}) {
   }
 
   /**
+   * Handle cliboard copy/cut events.
+   *
+   * @inheritdoc
+   */
+  function clipboardCopyEvent(event) {
+    if (!settings.clipboard) {
+      return event.preventDefault();
+    }
+  }
+
+  /**
    * Handle cliboard paste events.
    *
    * @inheritdoc
@@ -310,16 +324,20 @@ function TextMarked(textarea, settings = {}) {
 
     const selection = window.getSelection();
 
-    if (!selection.rangeCount) {
+    if (!settings.clipboard || !selection.rangeCount) {
       return;
     }
 
     // Strip rich text from pasted output.
-    const data = event.clipboardData.getData('text');
-    const text = document.createTextNode(data);
+    const data = event.clipboardData.getData('text').split('\n');
 
-    selection.getRangeAt(0).insertNode(text);
-    selection.collapseToEnd();
+    // Paste in editor supported format.
+    for (let i = 0; i < data.length; i++) {
+      const div = document.createElement('DIV');
+      div.innerText = data[i];
+
+      selection.getRangeAt(0).insertNode(div);
+    }
 
     // Sync changes w/ cache.
     textarea.value = self.content.innerText;
