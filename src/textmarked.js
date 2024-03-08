@@ -101,6 +101,7 @@ function TextMarked(textarea, settings) {
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('click', textSelectionEvent);
+    _textarea.addEventListener('paste', clipboardPasteEvent);
 
     self.content = _textarea;
 
@@ -291,6 +292,31 @@ function TextMarked(textarea, settings) {
 
       value: selection.toString()
     };
+  }
+
+  /**
+   * Handle cliboard paste events.
+   *
+   * @inheritdoc
+   */
+  function clipboardPasteEvent(event) {
+    event.preventDefault();
+
+    const selection = window.getSelection();
+
+    if (!selection.rangeCount) {
+      return;
+    }
+
+    // Strip rich text from pasted output.
+    const data = event.clipboardData.getData('text');
+    const text = document.createTextNode(data);
+
+    selection.getRangeAt(0).insertNode(text);
+    selection.collapseToEnd();
+
+    // Sync changes w/ cache.
+    textarea.value = self.content.innerText;
   }
 
   /**
