@@ -1,4 +1,4 @@
-# textmarked
+# textmarked [![Build Status](https://img.shields.io/github/actions/workflow/status/nuxy/textmarked/.github%2Fworkflows%2Fci.yml)](https://app.travis-ci.com/github/nuxy/textmarked)
 
 Enable Markdown editing in HTML `<textarea />`. :warning: Work In Progress :warning:
 
