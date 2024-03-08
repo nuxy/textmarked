@@ -2,6 +2,8 @@
 
 Enable Markdown editing in HTML `<textarea />`. :warning: Work In Progress :warning:
 
+![Preview](https://raw.githubusercontent.com/nuxy/textmarked/master/package.png)
+
 ## Usage
 
 There are two ways you can use this package.  One is by including the JavaScript/CSS sources directly.  The other is by importing the module into your component.
