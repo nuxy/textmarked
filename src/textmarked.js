@@ -133,15 +133,11 @@ function TextMarked(textarea, settings = {}) {
     const {key, target} = event;
 
     if ((new RegExp(`^[${chars}]{1}$`, 'i').test(key)) || key === 'Backspace' || (key === 'Enter' && settings?.allowEnter)) {
-
-      // Sync changes w/ cache.
-      textarea.value = target.innerText;
-
-    } else {
-
-      // Disable unsupported.
-      return event.preventDefault();
+      return syncTextChanges(target);
     }
+
+    // Disable unsupported.
+    return event.preventDefault();
   }
 
   /**
@@ -152,10 +148,7 @@ function TextMarked(textarea, settings = {}) {
   function keyUpEvent(event) {
     const {target} = event;
 
-    // Sync changes w/ cache.
-    textarea.value = target.innerText;
-
-    target.click();
+    syncTextChanges(target);
   }
 
   /**
@@ -252,8 +245,7 @@ function TextMarked(textarea, settings = {}) {
       }
     }
 
-    // Sync changes w/ cache.
-    textarea.value = self.content.innerText;
+    syncTextChanges();
 
     self.selection = null;
   }
@@ -334,14 +326,40 @@ function TextMarked(textarea, settings = {}) {
 
     // Paste in editor supported format.
     for (let i = 0; i < data.length; i++) {
-      const div = document.createElement('DIV');
+      const div = document.createElement('div');
       div.innerText = data[i];
 
       selection.getRangeAt(0).insertNode(div);
     }
 
-    // Sync changes w/ cache.
-    textarea.value = self.content.innerText;
+    syncTextChanges();
+  }
+
+  /**
+   * Synchronize contenteditable w/ TEXTAREA
+   *
+   * @param {Element} content
+   *   Content editable element.
+   */
+  function syncTextChanges(content = self.content) {
+    const contents = content.childNodes;
+
+    for (let i = 0; i < contents.length; i++) {
+      const content = contents[i];
+
+      if (content.tagName === 'DIV') {
+        const nodeFirst = content.firstChild;
+        const nodeLast  = content.lastChild;
+
+        content.replaceWith(nodeFirst);
+
+        if (nodeLast.tagName !== 'BR') {
+          nodeLast.after(document.createElement('br'));
+        }
+      }
+    }
+
+    textarea.value = content.innerText;
   }
 
   /**
