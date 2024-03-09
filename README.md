@@ -4,6 +4,19 @@ Enable Markdown editing in HTML `<textarea />`. :warning: Work In Progress :warn
 
 ![Preview](https://raw.githubusercontent.com/nuxy/textmarked/master/package.png)
 
+## Features
+
+- Extensible HTML/CSS interface.
+- Drop-in replacement for existing input element.
+- Scales to match `TEXTAREA` element dimensions.
+- Easy to set-up and customize. **No dependencies**.
+
+Checkout the [demo](https://nuxy.github.io/textmarked) for examples of use.
+
+## Dependencies
+
+- [Node.js](https://nodejs.org)
+
 ## Usage
 
 There are two ways you can use this package.  One is by including the JavaScript/CSS sources directly.  The other is by importing the module into your component.
@@ -44,6 +57,7 @@ const textMarked = new TextMarked(textarea, settings);
 const settings = {
   allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
   allowEnter: true,
+  clipboard: false,
   options: [
     'Heading',
     'Bold',
@@ -77,7 +91,7 @@ Overriding defaults can be done using the following options:
 |------------|---------------------------------|---------|---------|
 | allowKeys  | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`> |
 | allowEnter | Allow keyboard carriage return. | Boolean | false |
-| clipboard  | Allow clipboard functionality.  | Boolean | false |
+| clipboard  | Enable clipboard functionality.  | Boolean | false |
 | options    | List of [Supported elements](#supported-elements). | Array | **all elements** |
 
 ## Developers
@@ -98,7 +112,7 @@ Run [WebdriverIO](https://webdriver.io) E2E tests:
 
 ## References
 
-- [Markdown basic Syntax](https://www.markdownguide.org/cheat-sheet/#basic-syntax)
+- [Markdown basic syntax](https://www.markdownguide.org/cheat-sheet/#basic-syntax)
 - [Lineicons project](https://github.com/LineiconsHQ/Lineicons)
 
 ## Versioning
