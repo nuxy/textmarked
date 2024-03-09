@@ -202,6 +202,8 @@ function TextMarked(textarea, settings = {}) {
             markdown = item.data;
         }
 
+        item.textContent = markdown;
+
       } else {
 
         // .. focused selection.
@@ -246,9 +248,9 @@ function TextMarked(textarea, settings = {}) {
             markdown = '![' + (value || 'alt text') + '](image.jpg)';
           break;
         }
-      }
 
-      item.textContent = replaceInStr(item.textContent, start, end, markdown);
+        item.textContent = replaceInStr(item.textContent, start, end, markdown);
+      }
     }
 
     // Sync changes w/ cache.
@@ -283,7 +285,7 @@ function TextMarked(textarea, settings = {}) {
         isRange = true;
       }
 
-      if (node.tagName !== 'BR' && isRange) {
+      if (item.tagName !== 'BR' && isRange) {
         nodeList.push(item);
       }
 
