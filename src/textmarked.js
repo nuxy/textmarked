@@ -187,15 +187,15 @@ function TextMarked(textarea, settings = {}) {
         // .. multi-line selection.
         switch (target.title) {
           case 'Blockquote':
-            markdown = '> ' + item.data;
+            markdown = mBlockquote(item.data);
           break;
 
           case 'Ordered-List':
-            markdown = `${counter++}. ` + item.data;
+            markdown = mOrderedList(item.data, counter++);
           break;
 
           case 'Unordered-List':
-            markdown = '- ' + item.data;
+            markdown = mUnorderedList(item.data);
           break;
 
           default:
@@ -209,43 +209,43 @@ function TextMarked(textarea, settings = {}) {
         // .. focused selection.
         switch (target.title) {
           case 'Heading':
-            markdown = '# ' + value;
+            markdown = mHeading(value);
           break;
 
           case 'Bold':
-            markdown = '**' + (value || ' ') + '**';
+            markdown = mBold(value);
           break;
 
           case 'Italic':
-            markdown = '_' + (value || ' ') + '_';
+            markdown = mItalic(value);
           break;
 
           case 'Blockquote':
-            markdown = '> ' + value;
+            markdown = mBlockquote(value);
           break;
 
           case 'Ordered-List':
-            markdown = `1. ` + value;
+            markdown = mOrderedList(value);
           break;
 
           case 'Unordered-List':
-            markdown = '- ' + value;
+            markdown = mUnorderedList(value);
           break;
 
           case 'Code':
-            markdown = '`' + (value || ' ') + '`';
+            markdown = mCode(value);
           break;
 
           case 'Horizontal-Rule':
-            markdown = '---';
+            markdown = mHorizontalRule(value);
           break;
 
           case 'Link':
-            markdown = '[' + (value || 'title') + '](https://www.example.com)';
+            markdown = mLink(value);
           break;
 
           case 'Image':
-            markdown = '![' + (value || 'alt text') + '](image.jpg)';
+            markdown = mImage(value);
           break;
         }
 
@@ -343,6 +343,49 @@ function TextMarked(textarea, settings = {}) {
 
     // Sync changes w/ cache.
     textarea.value = self.content.innerText;
+  }
+
+  /**
+   * Markdown tags, by name.
+   */
+  function mHeading(value) {
+    return '# ' + value;
+  }
+
+  function mBold(value) {
+    return '**' + (value || ' ') + '**';
+  }
+
+  function mItalic(value) {
+    return '_' + (value || ' ') + '_';
+  }
+
+  function mBlockquote(value) {
+    return '> ' + value;
+  }
+
+  function mOrderedList(value, num = 1) {
+    return num + '. ' + value;
+  }
+
+  function mUnorderedList(value) {
+    return '- ' + value;
+  }
+
+  function mCode(value) {
+    return '`' + (value || ' ') + '`';
+  }
+
+  function mHorizontalRule() {
+    return '---';
+  }
+
+  function mLink(value) {
+    return '[' + (value || 'title') + '](https://www.example.com)';
+  }
+
+  function mImage(value) {
+    return '![' + (value || 'alt text') + '](image.jpg)';
   }
 
   /**
