@@ -181,7 +181,7 @@ function TextMarked(textarea, settings = {}) {
 
       let markdown;
 
-      if (node.length > 1) {
+      if (i > 1) {
 
         // .. multi-line selection.
         switch (target.title) {
@@ -345,7 +345,33 @@ function TextMarked(textarea, settings = {}) {
   }
 
   /**
+   * Replace value in a text string.
+   *
+   * @param {String} str
+   *   Text string to process.
+   *
+   * @param {Number} start
+   *   Start character position.
+   *
+   * @param {Number} end
+   *   End character position.
+   *
+   * @param {String} value
+   *   String replacement value.
+   *
+   * @return {String}
+   */
+  function replaceInStr(str = '', start = 0, end = 0, value = '') {
+    const chars = str.split('');
+    const count = (end - start);
+    chars.splice(start, count, value);
+    return chars.join('');
+  }
+
+  /**
    * Markdown tags, by name.
+   *
+   * @return {String}
    */
   function mHeading(value) {
     return '# ' + value;
@@ -385,42 +411,6 @@ function TextMarked(textarea, settings = {}) {
 
   function mImage(value) {
     return '![' + (value || 'alt text') + '](image.jpg)';
-  }
-
-  /**
-   * Convert Markdown to HTML equivalent.
-   *
-   * @param {String} value
-   *   Text string to process.
-   *
-   * @return {String}
-   */
-  function convertToMarkup(value) {
-    return value.replace(/\n/gm, '<br />'); // Newline
-  }
-
-  /**
-   * Replace value in a text string.
-   *
-   * @param {String} str
-   *   Text string to process.
-   *
-   * @param {Number} start
-   *   Start character position.
-   *
-   * @param {Number} end
-   *   End character position.
-   *
-   * @param {String} value
-   *   String replacement value.
-   *
-   * @return {String}
-   */
-  function replaceInStr(str = '', start = 0, end = 0, value = '') {
-    const chars = str.split('');
-    const count = (end - start);
-    chars.splice(start, count, value);
-    return chars.join('');
   }
 }
 
