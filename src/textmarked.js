@@ -160,21 +160,25 @@ function TextMarked(textarea, settings = {}) {
     const selection = self.selection;
 
     if (!selection) {
-      return;
+
+      // Disable unsupported.
+      return event.preventDefault();
     }
 
     const {node, start, end, value} = selection;
     const {target} = event;
 
+    const nodeTotal = node.length;
+
     let counter = 1;
 
     // Apply Markdown to selected text.
-    for (let i = 0; i < node.length; i++) {
+    for (let i = 0; i < nodeTotal; i++) {
       const item = node[i];
 
       let markdown;
 
-      if (i > 1) {
+      if (nodeTotal > 1) {
 
         // .. multi-line selection.
         switch (target.title) {
@@ -303,6 +307,8 @@ function TextMarked(textarea, settings = {}) {
    */
   function clipboardCopyEvent(event) {
     if (!settings.clipboard) {
+
+      // Disable unsupported.
       return event.preventDefault();
     }
   }
