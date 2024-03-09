@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="textmarked.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+
+    <script type="text/javascript" src="textmarked.min.js"></script>
+    <script>
+      window.onload = function() {
+        var settings = {
+          allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
+          allowEnter: true,
+          clipboard: true,
+          options: [
+            'Heading',
+            'Bold',
+            'Italic',
+            'Blockquote',
+            'Ordered-List',
+            'Unordered-List',
+            'Code',
+            'Horizontal-Rule',
+            'Link',
+            'Image'
+          ]
+        };
+
+        var textarea = document.getElementById('comments');
+
+        const {content} = textMarked(textarea, settings);
+        content.focus();
+      };
+    </script>
+
+    <title>Enable Markdown editing in HTML &lt;textarea &sol;&gt; | textmarked</title>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <label for="comments">Comments</label>
+
+        <textarea id="comments" name="comments" cols="50" rows="10" placeholder="Cache" readonly></textarea>
+      </fieldset>
+
+      <input type="Reset" />
+    </form>
+  </body>
+</html>

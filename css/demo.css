@@ -1,0 +1,28 @@
+form {
+  font-family: sans-serif;
+  margin: 10% auto 0 auto;
+  width: 400px;
+}
+
+form fieldset {
+  border: 0;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input[type=reset] {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+/**
+ * Debug cache.
+ *
+#comments {
+  opacity: 0.5;
+  visibility: visible !important;
+}*/
