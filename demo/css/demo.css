@@ -15,7 +15,8 @@ form label {
 
 form input[type=reset] {
   display: block;
-  margin: 50px auto;
+  margin: 0 auto;
+  position: relative;
 }
 
 /**
@@ -23,7 +24,5 @@ form input[type=reset] {
  *
 #comments {
   opacity: 0.5;
-  position: relative !important;
-  top: 50px;
   visibility: visible !important;
 }*/

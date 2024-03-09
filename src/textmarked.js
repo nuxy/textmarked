@@ -60,8 +60,7 @@ function TextMarked(textarea, settings = {}) {
     const height = Math.round(offset.height);
     const width  = Math.round(offset.width);
 
-    editor.style.height = height + 'px';
-    editor.style.width  = width  + 'px';
+    editor.style.width = width + 'px';
 
     // Create button elements.
     const ul = document.createElement('ul');
