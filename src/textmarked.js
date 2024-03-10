@@ -107,7 +107,7 @@ function TextMarked(textarea, settings = {}) {
 
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
-    _textarea.addEventListener('click', textSelectionEvent);
+    _textarea.addEventListener('mouseup', textSelectionEvent);
     _textarea.addEventListener('copy', clipboardCopyEvent);
     _textarea.addEventListener('cut', clipboardCopyEvent);
     _textarea.addEventListener('paste', clipboardPasteEvent);
@@ -255,7 +255,7 @@ function TextMarked(textarea, settings = {}) {
   }
 
   /**
-   * Handle text selection events (click).
+   * Handle text selection events (mouseup).
    *
    * @inheritdoc
    */
