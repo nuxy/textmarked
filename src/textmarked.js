@@ -259,10 +259,16 @@ function TextMarked(textarea, settings = {}) {
    *
    * @inheritdoc
    */
-  function textSelectionEvent() {
+  function textSelectionEvent(event) {
     const selection = window.getSelection();
 
     const {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
+
+    if (isContentEditable(focusNode)) {
+
+      // Disable unsupported.
+      return event.preventDefault();
+    }
 
     const contents = self.content.childNodes;
     const nodeList = [];
@@ -390,6 +396,18 @@ function TextMarked(textarea, settings = {}) {
     const count = (end - start);
     chars.splice(start, count, value);
     return chars.join('');
+  }
+
+  /**
+   * Check is Node/Element is editable.
+   *
+   * @param {Node|Element} value
+   *   Instance of value.
+   *
+   * @return {Boolean}
+   */
+  function isContentEditable(value) {
+    return value && ((value.contenteditable || value.parentNode.contenteditable));
   }
 
   /**
