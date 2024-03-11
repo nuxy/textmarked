@@ -108,6 +108,7 @@ function TextMarked(textarea, settings = {}) {
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('mouseup', textSelectionEvent);
+    _textarea.addEventListener('mouseout', textSelectionEvent);
     _textarea.addEventListener('copy', clipboardCopyEvent);
     _textarea.addEventListener('cut', clipboardCopyEvent);
     _textarea.addEventListener('paste', clipboardPasteEvent);
@@ -148,6 +149,7 @@ function TextMarked(textarea, settings = {}) {
   function keyUpEvent(event) {
     const {target} = event;
 
+    textSelectionEvent(event);
     syncTextChanges(target);
   }
 
@@ -245,7 +247,22 @@ function TextMarked(textarea, settings = {}) {
           break;
         }
 
-        item.textContent = replaceInStr(item.textContent, start, end, markdown);
+
+        if (start < end) {
+
+          // Range text, no break lines.
+          item.textContent = replaceInStr(item.textContent, start, end, markdown);
+
+        } else if (end > 0) {
+
+          // Break line (BR) Tag.
+          item.after(markdown);
+
+        } else {
+
+          // Empty line (no Tags).
+          item.textContent = markdown;
+        }
       }
     }
 
@@ -278,15 +295,14 @@ function TextMarked(textarea, settings = {}) {
     // Extract range of #text nodes.
     for (let i = 0; i < contents.length; i++) {
       const node = contents[i];
-
-      let item = (node.tagName === 'DIV')
-        ? node.firstChild : node
+      const item = (node.tagName === 'DIV')
+        ? node.firstChild : node;
 
       if (item === focusNode) {
         isRange = true;
       }
 
-      if (item.tagName !== 'BR' && isRange) {
+      if ((item.tagName !== 'BR' && isRange) || (item.tagName === 'BR' && !isRange && focusOffset === (i + 1))) {
         nodeList.push(item);
       }
 
@@ -365,7 +381,7 @@ function TextMarked(textarea, settings = {}) {
 
         content.replaceWith(nodeFirst);
 
-        if (nodeLast.tagName !== 'BR') {
+        if (nodeLast && nodeLast.tagName !== 'BR') {
           nodeLast.after(document.createElement('br'));
         }
       }
