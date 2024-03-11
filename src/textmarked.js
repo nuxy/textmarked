@@ -171,7 +171,10 @@ function TextMarked(textarea, settings = {}) {
     const {target} = event;
 
     const nodeTotal = node.length;
+    const nodeFirst = node[0];
+    const nodeLast  = node[nodeTotal -1];
 
+    let padding = false;
     let counter = 1;
 
     // Apply Markdown to selected text.
@@ -186,14 +189,17 @@ function TextMarked(textarea, settings = {}) {
         switch (target.title) {
           case 'Blockquote':
             markdown = mBlockquote(item.data);
+            padding = true;
           break;
 
           case 'Ordered-List':
             markdown = mOrderedList(item.data, counter++);
+            padding = true;
           break;
 
           case 'Unordered-List':
             markdown = mUnorderedList(item.data);
+            padding = true;
           break;
 
           default:
@@ -236,6 +242,7 @@ function TextMarked(textarea, settings = {}) {
 
           case 'Horizontal-Rule':
             markdown = mHorizontalRule(value);
+            padding  = true;
           break;
 
           case 'Link':
@@ -246,7 +253,6 @@ function TextMarked(textarea, settings = {}) {
             markdown = mImage(value);
           break;
         }
-
 
         if (start < end) {
 
@@ -266,13 +272,19 @@ function TextMarked(textarea, settings = {}) {
       }
     }
 
+    // Pad select values with line breaks.
+    if (padding) {
+      nodeFirst.before(document.createElement('br'));
+      nodeLast.after(document.createElement('br'));
+    }
+
     syncTextChanges();
 
     self.selection = null;
   }
 
   /**
-   * Handle text selection events (mouseup).
+   * Handle text selection events (mouseup|mouseout).
    *
    * @inheritdoc
    */
@@ -459,8 +471,8 @@ function TextMarked(textarea, settings = {}) {
     return '`' + (value || ' ') + '`';
   }
 
-  function mHorizontalRule() {
-    return '---';
+  function mHorizontalRule(value) {
+    return value || '---';
   }
 
   function mLink(value) {
