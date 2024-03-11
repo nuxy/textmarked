@@ -1,0 +1,10 @@
+.babelrc
+.eslintrc
+.github
+.npmignore
+.vscode
+demo
+package.*
+node_modules
+test
+wdio.conf.js
