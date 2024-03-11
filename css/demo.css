@@ -19,6 +19,10 @@ form input[type=reset] {
   position: relative;
 }
 
+form textarea {
+  width: 370px;
+}
+
 /**
  * Debug cache.
  *
