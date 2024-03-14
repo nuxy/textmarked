@@ -314,7 +314,7 @@ function TextMarked(textarea, settings = {}) {
         isRange = true;
       }
 
-      if ((item.tagName !== 'BR' && isRange) || (item.tagName === 'BR' && !isRange && focusOffset === (i + 1))) {
+      if ((item.tagName !== 'BR' && isRange) || (item.tagName === 'BR' && !isRange && focusOffset === (i + 1) && i !== 1)) {
         nodeList.push(item);
       }
 
