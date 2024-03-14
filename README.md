@@ -1,6 +1,8 @@
-# textmarked [![Build Status](https://img.shields.io/github/actions/workflow/status/nuxy/textmarked/.github%2Fworkflows%2Fci.yml)](https://app.travis-ci.com/github/nuxy/textmarked)
+# textmarked
 
-Enable Markdown editing in HTML `<textarea />`. :warning: Work In Progress :warning:
+[![npm version](https://badge.fury.io/js/textmarked.svg)](https://badge.fury.io/js/textmarked) [![](https://img.shields.io/npm/dm/textmarked)](https://www.npmjs.com/package/textmarked) [![Build Status](https://img.shields.io/github/actions/workflow/status/nuxy/textmarked/.github%2Fworkflows%2Fci.yml)](https://app.travis-ci.com/github/nuxy/textmarked) [![Install size](https://packagephobia.com/badge?p=textmarked)](https://packagephobia.com/result?p=textmarked) [![](https://img.shields.io/github/v/release/nuxy/textmarked)](https://github.com/nuxy/textmarked/releases)
+
+Enable Markdown editing in HTML `<textarea />`
 
 ![Preview](https://raw.githubusercontent.com/nuxy/textmarked/master/package.png)
 
@@ -16,6 +18,12 @@ Checkout the [demo](https://nuxy.github.io/textmarked) for examples of use.
 ## Dependencies
 
 - [Node.js](https://nodejs.org)
+
+## Installation
+
+Install the package into your project using [NPM](https://npmjs.com), or download the [sources](https://github.com/nuxy/textmarked/archive/master.zip).
+
+    $ npm install textmarked
 
 ## Usage
 
@@ -89,9 +97,9 @@ Overriding defaults can be done using the following options:
 
 | Key        | Description                     | Type    | Default |
 |------------|---------------------------------|---------|---------|
-| allowKeys  | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`> |
+| allowKeys  | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | ``a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`` |
 | allowEnter | Allow keyboard carriage return. | Boolean | false |
-| clipboard  | Enable clipboard functionality.  | Boolean | false |
+| clipboard  | Enable clipboard functionality. | Boolean | false |
 | options    | List of [Supported elements](#supported-elements). | Array | **all elements** |
 
 ## Developers
