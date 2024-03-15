@@ -66,6 +66,7 @@ const settings = {
   allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
   allowEnter: true,
   clipboard: false,
+  showExample: true,
   options: [
     'Heading',
     'Bold',
@@ -95,12 +96,13 @@ content.focus();
 
 Overriding defaults can be done using the following options:
 
-| Key        | Description                     | Type    | Default |
-|------------|---------------------------------|---------|---------|
-| allowKeys  | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | ``a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`` |
-| allowEnter | Allow keyboard carriage return. | Boolean | false |
-| clipboard  | Enable clipboard functionality. | Boolean | false |
-| options    | List of [Supported elements](#supported-elements). | Array | **all elements** |
+| Key         | Description                     | Type    | Default |
+|-------------|---------------------------------|---------|---------|
+| allowKeys   | Support keyboard characters ([REGEX](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes)) | String | ``a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`` |
+| allowEnter  | Allow keyboard carriage return. | Boolean | false |
+| clipboard   | Enable clipboard functionality. | Boolean | false |
+| showExample | Show Markdown example in title. | Boolean | false |
+| options     | List of [Supported elements](#supported-elements). | Array | **all elements** |
 
 ## Developers
 

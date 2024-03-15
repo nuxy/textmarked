@@ -16,43 +16,53 @@ describe('Editor options', function() {
     const options = [
       {
         name: 'Heading',
-        output: '#'
+        output: '# ',
+        example: '# Heading',
       },
       {
         name: 'Bold',
-        output: '** **'
+        output: '** **',
+        example: '**Bold**'
       },
       {
         name: 'Italic',
-        output: '_ _'
+        output: '_ _',
+        example: '_Italic_'
       },
       {
         name: 'Blockquote',
-        output: '>'
+        output: '> ',
+        example: '> Blockquote'
       },
       {
         name: 'Ordered-List',
-        output: '1.'
+        output: '1. ',
+        example: '1. Ordered-List'
       },
       {
         name: 'Unordered-List',
-        output: '-'
+        output: '- ',
+        example: '- Unordered-List'
       },
       {
         name: 'Code',
-        output: '` `'
+        output: '` `',
+        example: '`Code`'
       },
       {
         name: 'Horizontal-Rule',
-        output: '---'
+        output: '---',
+        example: '---'
       },
       {
         name: 'Link',
-        output: '[title](https://www.example.com)'
+        output: '[title](https://www.example.com)',
+        example: '[title](https://www.example.com)'
       },
       {
         name: 'Image',
-        output: '![alt text](image.jpg)'
+        output: '![alt text](image.jpg)',
+        example: '![alt text](image.jpg)'
       }
     ];
 
@@ -62,6 +72,7 @@ describe('Editor options', function() {
       for (let i = 0; i < buttons.length; i++) {
         const button  = buttons[i];
         const optName = options[i].name;
+        const example  = options[i].example;
 
         const className = `icon ${optName}`;
         const tabindex  = (i + 1).toString();
@@ -74,8 +85,8 @@ describe('Editor options', function() {
           message: `Attribute tabindex="${tabindex}" is defined`
         });
 
-        await expect(button).toHaveAttribute('title', optName, {
-          message: `Attribute title="${optName}" is defined`
+        await expect(button).toHaveAttribute('title', example, {
+          message: `Attribute title="${example}" is defined`
         });
 
         await expect(button).toHaveAttribute('aria-label', optName, {
@@ -108,7 +119,7 @@ describe('Editor options', function() {
 
         await button.click();
 
-        await expect(content).toHaveText(output);
+        await expect(content).toHaveText(output.trim());
 
         await $('input[type=reset]').click();
       }

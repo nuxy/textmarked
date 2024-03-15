@@ -22,7 +22,8 @@ function TextMarked(textarea, settings = {}) {
   const defaults = {
     allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
     allowEnter: false,
-    clipboard: false
+    clipboard: false,
+    showExample: false
   };
 
   (function() {
@@ -77,9 +78,10 @@ function TextMarked(textarea, settings = {}) {
       li.classList.add('icon');
       li.classList.add(name);
       li.setAttribute('aria-label', name);
+      li.setAttribute('data-id', name);
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', i + 1);
-      li.setAttribute('title', name);
+      li.setAttribute('title', (settings?.showExample) ? getExample(name) : name);
 
       li.style.height = buttonXY + 'px';
       li.style.width  = buttonXY + 'px';
@@ -186,7 +188,7 @@ function TextMarked(textarea, settings = {}) {
       if (nodeTotal > 1) {
 
         // .. multi-line selection.
-        switch (target.title) {
+        switch (target.dataset.id) {
           case 'Blockquote':
             markdown = mBlockquote(item.data);
             padding = true;
@@ -211,7 +213,7 @@ function TextMarked(textarea, settings = {}) {
       } else {
 
         // .. focused selection.
-        switch (target.title) {
+        switch (target.dataset.id) {
           case 'Heading':
             markdown = mHeading(value);
           break;
@@ -436,6 +438,48 @@ function TextMarked(textarea, settings = {}) {
    */
   function isContentEditable(value) {
     return value && ((value.contenteditable || value.parentNode.contenteditable));
+  }
+
+  /**
+   * Return Markdown usage example.
+   *
+   * @param {String} name
+   *   Markdown element name.
+   *
+   * @return {String}
+   */
+  function getExample(name) {
+    switch (name) {
+      case 'Heading':
+        return mHeading(name);
+
+      case 'Bold':
+        return mBold(name);
+
+      case 'Italic':
+        return mItalic(name);
+
+      case 'Blockquote':
+        return mBlockquote(name);
+
+      case 'Ordered-List':
+        return mOrderedList(name);
+
+      case 'Unordered-List':
+        return mUnorderedList(name);
+
+      case 'Code':
+        return mCode(name);
+
+      case 'Horizontal-Rule':
+        return mHorizontalRule();
+
+      case 'Link':
+        return mLink();
+
+      case 'Image':
+        return mImage();
+    }
   }
 
   /**
