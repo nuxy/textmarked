@@ -135,7 +135,9 @@ function TextMarked(textarea, settings = {}) {
     const chars = settings?.allowKeys;
     const {key, target} = event;
 
-    if ((new RegExp(`^[${chars}]{1}$`, 'i').test(key)) || key === 'Backspace' || (key === 'Enter' && settings?.allowEnter)) {
+    const isValidKey = new RegExp(`^[${chars}]{1}$`, 'i').test(key);
+
+    if (isValidKey || key === 'Backspace' || (key === 'Enter' && settings?.allowEnter)) {
       return syncTextChanges(target);
     }
 
@@ -312,11 +314,15 @@ function TextMarked(textarea, settings = {}) {
       const item = (node.tagName === 'DIV')
         ? node.firstChild : node;
 
+      const breakOffset = (focusOffset === (i + 1));
+      const isLineBreak = (item.tagName === 'BR');
+      const isFirstText = (i === 1);
+
       if (item === focusNode) {
         isRange = true;
       }
 
-      if ((item.tagName !== 'BR' && isRange) || (item.tagName === 'BR' && !isRange && focusOffset === (i + 1) && i !== 1)) {
+      if (!isLineBreak && isRange || (isLineBreak && !isRange && breakOffset && !isFirstText)) {
         nodeList.push(item);
       }
 
@@ -431,13 +437,13 @@ function TextMarked(textarea, settings = {}) {
   /**
    * Check is Node/Element is editable.
    *
-   * @param {Node|Element} value
-   *   Instance of value.
+   * @param {Node|Element} elm
+   *   Instance of element.
    *
    * @return {Boolean}
    */
-  function isContentEditable(value) {
-    return value && ((value.contenteditable || value.parentNode.contenteditable));
+  function isContentEditable(elm) {
+    return elm && ((elm.contenteditable || elm.parentNode.contenteditable));
   }
 
   /**
