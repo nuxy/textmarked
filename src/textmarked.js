@@ -26,6 +26,12 @@ function TextMarked(textarea, settings = {}) {
     showExample: false
   };
 
+  const uiState = {
+    buttons: [],
+    content: null,
+    selection: null
+  };
+
   (function() {
     settings = Object.assign(defaults, settings);
 
@@ -44,7 +50,7 @@ function TextMarked(textarea, settings = {}) {
     textarea.form.addEventListener('reset', function() {
 
       // Clear editor contents.
-      self.content.textContent = '';
+      uiState.content.textContent = '';
     });
   }
 
@@ -88,6 +94,8 @@ function TextMarked(textarea, settings = {}) {
       li.addEventListener('mousedown', disableFocusEvent);
 
       ul.appendChild(li);
+
+      uiState.buttons.push(li);
     }
 
     editor.appendChild(ul);
@@ -115,7 +123,7 @@ function TextMarked(textarea, settings = {}) {
     _textarea.addEventListener('cut', clipboardCopyEvent);
     _textarea.addEventListener('paste', clipboardPasteEvent);
 
-    self.content = _textarea;
+    uiState.content = _textarea;
 
     editor.appendChild(_textarea);
 
@@ -164,7 +172,7 @@ function TextMarked(textarea, settings = {}) {
    * @inheritdoc
    */
   function buttonEvent(event) {
-    const selection = self.selection;
+    const selection = uiState.selection;
 
     if (!selection) {
 
@@ -285,7 +293,7 @@ function TextMarked(textarea, settings = {}) {
 
     syncTextChanges();
 
-    self.selection = null;
+    uiState.selection = null;
   }
 
   /**
@@ -304,7 +312,7 @@ function TextMarked(textarea, settings = {}) {
       return event.preventDefault();
     }
 
-    const contents = self.content.childNodes;
+    const contents = uiState.content.childNodes;
     const nodeList = [];
 
     let isRange = false;
@@ -332,7 +340,7 @@ function TextMarked(textarea, settings = {}) {
       }
     }
 
-    self.selection = {
+    uiState.selection = {
       node: (nodeList.length) ? nodeList : [focusNode],
 
       // .. inverted selections.
@@ -392,7 +400,7 @@ function TextMarked(textarea, settings = {}) {
   function contentFocusEvent(event) {
     const {target} = event;
 
-    const buttons = target.parentNode.querySelectorAll('[data-id]');
+    const buttons = uiState.buttons;
 
     // Toggle button availability.
     for (let i = 0; i < buttons.length; i++) {
@@ -423,7 +431,7 @@ function TextMarked(textarea, settings = {}) {
    * @param {Element} content
    *   Content editable element.
    */
-  function syncTextChanges(content = self.content) {
+  function syncTextChanges(content = uiState.content) {
     const contents = content.childNodes;
 
     for (let i = 0; i < contents.length; i++) {
@@ -566,6 +574,15 @@ function TextMarked(textarea, settings = {}) {
   function mImage(value) {
     return '![' + (value || 'alt text') + '](image.jpg)';
   }
+
+  /**
+   * Protected members.
+   */
+  self.focus = function() {
+    uiState.content.focus();
+  };
+
+  return self;
 }
 
 /**
