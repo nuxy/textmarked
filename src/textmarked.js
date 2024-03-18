@@ -75,8 +75,7 @@ function TextMarked(textarea, settings = {}) {
       const name = settings.options[i];
 
       const li = document.createElement('li');
-      li.classList.add('icon');
-      li.classList.add(name);
+      li.classList.add('icon', 'disabled', name);
       li.setAttribute('aria-label', name);
       li.setAttribute('data-id', name);
       li.setAttribute('role', 'button');
@@ -86,7 +85,7 @@ function TextMarked(textarea, settings = {}) {
       li.style.height = buttonXY + 'px';
       li.style.width  = buttonXY + 'px';
 
-      li.addEventListener('click', buttonEvent);
+      li.addEventListener('mousedown', disableFocusEvent);
 
       ul.appendChild(li);
     }
@@ -107,6 +106,7 @@ function TextMarked(textarea, settings = {}) {
     _textarea.style.minHeight = (height - insetBorder) + 'px';
     _textarea.style.minWidth  = (width  - insetBorder) + 'px';
 
+    _textarea.addEventListener('focus', contentFocusEvent);
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('mouseup', textSelectionEvent);
@@ -153,6 +153,7 @@ function TextMarked(textarea, settings = {}) {
   function keyUpEvent(event) {
     const {target} = event;
 
+    contentFocusEvent(event);
     textSelectionEvent(event);
     syncTextChanges(target);
   }
@@ -381,6 +382,39 @@ function TextMarked(textarea, settings = {}) {
     }
 
     syncTextChanges();
+  }
+
+  /**
+   * Handle content focus events.
+   *
+   * @inheritdoc
+   */
+  function contentFocusEvent(event) {
+    const {target} = event;
+
+    const buttons = target.parentNode.querySelectorAll('[data-id]');
+
+    // Toggle button availability.
+    for (let i = 0; i < buttons.length; i++) {
+      const button = buttons[i];
+
+      if (target.textContent) {
+        button.classList.remove('disabled');
+        button.addEventListener('click', buttonEvent);
+      } else {
+        button.classList.add('disabled');
+        button.removeEventListener('click', buttonEvent);
+      }
+    }
+  }
+
+  /**
+   * Disable element focus events.
+   *
+   * @inheritdoc
+   */
+  function disableFocusEvent(event) {
+    event.preventDefault();
   }
 
   /**

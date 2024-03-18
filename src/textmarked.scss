@@ -17,6 +17,11 @@
     li {
       cursor: pointer;
       display: inline-block;
+
+      &.disabled {
+        cursor: auto;
+        opacity: 0.5;
+      }
     }
   }
 

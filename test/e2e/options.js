@@ -74,7 +74,7 @@ describe('Editor options', function() {
         const optName = options[i].name;
         const example  = options[i].example;
 
-        const className = `icon ${optName}`;
+        const className = `icon disabled ${optName}`;
         const tabindex  = (i + 1).toString();
 
         await expect(button).toHaveAttribute('class', className, {
@@ -113,6 +113,10 @@ describe('Editor options', function() {
           .down({button: 0})
           .pause(2)
           .up({button: 0})
+          .perform();
+
+        await browser.action('key')
+          .down(Key.Space)
           .perform();
 
         await expect(button).toBeClickable();
