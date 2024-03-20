@@ -86,7 +86,7 @@ function TextMarked(textarea, settings = {}) {
       li.setAttribute('data-id', name);
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', i + 1);
-      li.setAttribute('title', (settings?.showExample) ? getExample(name) : name);
+      li.setAttribute('title', (settings?.showExample) ? mExample(name) : name);
 
       li.style.height = buttonXY + 'px';
       li.style.width  = buttonXY + 'px';
@@ -172,6 +172,8 @@ function TextMarked(textarea, settings = {}) {
    * @inheritdoc
    */
   function buttonEvent(event) {
+    const {target} = event;
+
     const selection = uiState.selection;
 
     if (!selection) {
@@ -180,9 +182,7 @@ function TextMarked(textarea, settings = {}) {
       return event.preventDefault();
     }
 
-    const {nodes, start, end, value} = selection;
-    const {target} = event;
-
+    const {nodes, start, end, count, value} = selection;
     const nodeTotal = nodes.length;
     const nodeFirst = nodes[0];
     const nodeLast  = nodes[nodeTotal -1];
@@ -196,7 +196,7 @@ function TextMarked(textarea, settings = {}) {
 
       let markdown;
 
-      if (nodeTotal > 1) {
+      if (count > 1) {
 
         // .. multi-line selection.
         switch (target.dataset.id) {
@@ -340,6 +340,8 @@ function TextMarked(textarea, settings = {}) {
       }
     }
 
+    const value = selection.toString();
+
     uiState.selection = {
       nodes: (nodeList.length) ? nodeList : [focusNode],
 
@@ -347,8 +349,13 @@ function TextMarked(textarea, settings = {}) {
       start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
       end:   (focusOffset < anchorOffset) ? anchorOffset : focusOffset,
 
-      value: selection.toString()
+      // .. highlighted rows.
+      count: value.split(/\n/).length,
+
+      value
     };
+
+    contentFocusEvent(event);
   }
 
   /**
@@ -444,7 +451,7 @@ function TextMarked(textarea, settings = {}) {
         content.replaceWith(nodeFirst);
 
         if (nodeLast && nodeLast.tagName !== 'BR') {
-          nodeLast.after(document.createElement('br'));
+          nodeLast.after(document.createElement('BR'));
         }
       }
     }
@@ -494,9 +501,9 @@ function TextMarked(textarea, settings = {}) {
    * @param {String} name
    *   Markdown element name.
    *
-   * @return {String}
+   * @return {String|undefined}
    */
-  function getExample(name) {
+  function mExample(name) {
     switch (name) {
       case 'Heading':
         return mHeading(name);
@@ -531,7 +538,7 @@ function TextMarked(textarea, settings = {}) {
   }
 
   /**
-   * Markdown tags, by name.
+   * Return Markdown tagged output.
    *
    * @return {String}
    */
