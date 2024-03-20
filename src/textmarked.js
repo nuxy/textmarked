@@ -180,19 +180,19 @@ function TextMarked(textarea, settings = {}) {
       return event.preventDefault();
     }
 
-    const {node, start, end, value} = selection;
+    const {nodes, start, end, value} = selection;
     const {target} = event;
 
-    const nodeTotal = node.length;
-    const nodeFirst = node[0];
-    const nodeLast  = node[nodeTotal -1];
+    const nodeTotal = nodes.length;
+    const nodeFirst = nodes[0];
+    const nodeLast  = nodes[nodeTotal -1];
 
     let padding = false;
     let counter = 1;
 
     // Apply Markdown to selected text.
     for (let i = 0; i < nodeTotal; i++) {
-      const item = node[i];
+      const item = nodes[i];
 
       let markdown;
 
@@ -341,7 +341,7 @@ function TextMarked(textarea, settings = {}) {
     }
 
     uiState.selection = {
-      node: (nodeList.length) ? nodeList : [focusNode],
+      nodes: (nodeList.length) ? nodeList : [focusNode],
 
       // .. inverted selections.
       start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
