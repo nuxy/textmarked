@@ -93,7 +93,7 @@
     border: solid;
     border-width: 1px;
     cursor: text;
-    display:inline-block !important;
+    display: inline-block !important; // Force editor mode (#text/BR only).
     font-family: monospace;
     outline: none;
     overflow: scroll;

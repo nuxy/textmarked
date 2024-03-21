@@ -118,7 +118,6 @@ function TextMarked(textarea, settings = {}) {
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('mouseup', textSelectionEvent);
-    _textarea.addEventListener('mouseout', textSelectionEvent);
     _textarea.addEventListener('copy', clipboardCopyEvent);
     _textarea.addEventListener('cut', clipboardCopyEvent);
     _textarea.addEventListener('paste', clipboardPasteEvent);
@@ -182,7 +181,7 @@ function TextMarked(textarea, settings = {}) {
       return event.preventDefault();
     }
 
-    const {nodes, start, end, count, value} = selection;
+    const {nodes, start, end, value} = selection;
     const nodeTotal = nodes.length;
     const nodeFirst = nodes[0];
     const nodeLast  = nodes[nodeTotal -1];
@@ -196,7 +195,7 @@ function TextMarked(textarea, settings = {}) {
 
       let markdown;
 
-      if (count > 1) {
+      if (nodeTotal > 1) {
 
         // .. multi-line selection.
         switch (target.dataset.id) {
@@ -297,62 +296,60 @@ function TextMarked(textarea, settings = {}) {
   }
 
   /**
-   * Handle text selection events (mouseup|mouseout).
+   * Handle text selection events (mouseup).
    *
    * @inheritdoc
    */
   function textSelectionEvent(event) {
     const selection = window.getSelection();
 
-    const {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
+    let {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
 
-    if (isContentEditable(focusNode)) {
-
-      // Disable unsupported.
-      return event.preventDefault();
-    }
+    // Limit selection focus to only #text nodes.
+    if (isContentEditable(focusNode)) { return }
 
     const contents = uiState.content.childNodes;
     const nodeList = [];
 
     let isRange = false;
 
-    // Extract range of #text nodes.
+    // Extract selection "Range" of #text nodes.
     for (let i = 0; i < contents.length; i++) {
       const node = contents[i];
-      const item = (node.tagName === 'DIV')
-        ? node.firstChild : node;
 
-      const breakOffset = (focusOffset === (i + 1));
-      const isLineBreak = (item.tagName === 'BR');
-      const isFirstText = (i === 1);
+      const isEndOfLine = (focusOffset === anchorOffset);
+      const isLineBreak = (node.tagName === 'BR');
 
-      if (item === focusNode) {
+      if (isLineBreak) {
+        continue;
+      }
+
+      if (node === focusNode && !isEndOfLine) {
         isRange = true;
       }
 
-      if (!isLineBreak && isRange || (isLineBreak && !isRange && breakOffset && !isFirstText)) {
-        nodeList.push(item);
+      if (isRange) {
+        nodeList.push(node);
       }
 
-      if (item === anchorNode) {
+      if (node === anchorNode) {
         isRange = false;
       }
     }
 
-    const value = selection.toString();
+    // Handle inverted selections.
+    focusOffset  = (focusOffset > anchorOffset) ? anchorOffset : focusOffset;
+    anchorOffset = (focusOffset < anchorOffset) ? anchorOffset : focusOffset;
+    focusNode    = (focusNode > anchorNode)     ? anchorNode   : focusNode;
+
+    // Restrict empty selections.
+    if (focusOffset === anchorOffset && anchorOffset > 1) { return }
 
     uiState.selection = {
       nodes: (nodeList.length) ? nodeList : [focusNode],
-
-      // .. inverted selections.
-      start: (focusOffset > anchorOffset) ? anchorOffset : focusOffset,
-      end:   (focusOffset < anchorOffset) ? anchorOffset : focusOffset,
-
-      // .. highlighted rows.
-      count: value.split(/\n/).length,
-
-      value
+      start: focusOffset,
+      end: anchorOffset,
+      value: selection.toString()
     };
 
     contentFocusEvent(event);
@@ -439,23 +436,6 @@ function TextMarked(textarea, settings = {}) {
    *   Content editable element.
    */
   function syncTextChanges(content = uiState.content) {
-    const contents = content.childNodes;
-
-    for (let i = 0; i < contents.length; i++) {
-      const content = contents[i];
-
-      if (content.tagName === 'DIV') {
-        const nodeFirst = content.firstChild;
-        const nodeLast  = content.lastChild;
-
-        content.replaceWith(nodeFirst);
-
-        if (nodeLast && nodeLast.tagName !== 'BR') {
-          nodeLast.after(document.createElement('BR'));
-        }
-      }
-    }
-
     textarea.value = content.innerText;
   }
 
@@ -492,7 +472,7 @@ function TextMarked(textarea, settings = {}) {
    * @return {Boolean}
    */
   function isContentEditable(elm) {
-    return elm && ((elm.contenteditable || elm.parentNode.contenteditable));
+    return elm && elm.contentEditable;
   }
 
   /**
