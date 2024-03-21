@@ -303,10 +303,17 @@ function TextMarked(textarea, settings = {}) {
   function textSelectionEvent(event) {
     const selection = window.getSelection();
 
-    let {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
+    const {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
+
+    // Handle inverted selections (reversed scope).
+    const isInverted = (focusOffset > anchorOffset);
+    const _focusOffset  = (isInverted) ? anchorOffset : focusOffset;
+    const _anchorOffset = (isInverted) ? focusOffset  : anchorOffset;
+    const _focusNode    = (isInverted) ? anchorNode   : focusNode;
+    const _anchorNode   = (isInverted) ? focusNode    : anchorNode;
 
     // Limit selection focus to only #text nodes.
-    if (isContentEditable(focusNode)) { return }
+    if (isContentEditable(_focusNode)) { return }
 
     const contents = uiState.content.childNodes;
     const nodeList = [];
@@ -324,7 +331,7 @@ function TextMarked(textarea, settings = {}) {
         continue;
       }
 
-      if (node === focusNode && !isEndOfLine) {
+      if (node === _focusNode && !isEndOfLine) {
         isRange = true;
       }
 
@@ -332,23 +339,19 @@ function TextMarked(textarea, settings = {}) {
         nodeList.push(node);
       }
 
-      if (node === anchorNode) {
+      if (node === _anchorNode) {
         isRange = false;
       }
     }
 
-    // Handle inverted selections.
-    focusOffset  = (focusOffset > anchorOffset) ? anchorOffset : focusOffset;
-    anchorOffset = (focusOffset < anchorOffset) ? anchorOffset : focusOffset;
-    focusNode    = (focusNode > anchorNode)     ? anchorNode   : focusNode;
-
     // Restrict empty selections.
-    if (focusOffset === anchorOffset && anchorOffset > 1) { return }
+    if (_focusOffset === _anchorOffset
+      && (_anchorOffset > 1 || _focusOffset === 0)) { return }
 
     uiState.selection = {
-      nodes: (nodeList.length) ? nodeList : [focusNode],
-      start: focusOffset,
-      end: anchorOffset,
+      nodes: (nodeList.length) ? nodeList : [_focusNode],
+      start: _focusOffset,
+      end: _anchorOffset,
       value: selection.toString()
     };
 
