@@ -1,6 +1,6 @@
 {
   "name": "textmarked",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Enable Markdown editing in HTML <textarea />",
   "main": "src/textmarked.js",
   "scripts": {
