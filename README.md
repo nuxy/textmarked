@@ -83,8 +83,7 @@ const settings = {
 
 const textarea = document.getElementById('comments');
 
-const {content} = new TextMarked(textarea, settings);
-content.focus();
+textMarked(textarea, settings).focus();
 ```
 
 ## Supported elements
