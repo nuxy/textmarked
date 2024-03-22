@@ -31,6 +31,25 @@
         var textarea = document.getElementById('comments');
 
         textMarked(textarea, settings).focus();
+
+        var button = document.getElementById('toggle-button');
+
+        button.addEventListener('click', event => {
+          event.preventDefault();
+
+          var field1 = document.querySelector('#comments');
+          var field2 = document.querySelector('.textmarked');
+
+          if (field1.style.visibility === 'hidden') {
+            field1.style.visibility = 'visible';
+            field1.style.position = 'relative';
+            field2.style.display = 'none';
+          } else {
+            field1.style.visibility = 'hidden';
+            field1.style.position = 'absolute';
+            field2.style.display = 'block';
+          }
+        });
       };
     </script>
 
@@ -39,9 +58,15 @@
   <body>
     <form>
       <fieldset>
-        <label for="comments">Comments</label>
+        <legend>
+          <button id="toggle-button">Toggle</button>
+        </legend>
 
-        <textarea id="comments" name="comments" cols="50" rows="10" placeholder="Cache" readonly></textarea>
+        <div>
+          <label for="comments">Comments</label>
+
+          <textarea id="comments" name="comments" cols="50" rows="10"></textarea>
+        </div>
       </fieldset>
 
       <input type="Reset" />
