@@ -5,11 +5,25 @@ body {
 form {
   font-family: sans-serif;
   margin: 10% auto 0 auto;
-  width: 400px;
+  width: 380px;
 }
 
 form fieldset {
   border: 0;
+  padding: 0;
+  position: relative;
+  width: inherit;
+}
+
+form legend {
+  font-size: 12px;
+  position: absolute;
+  text-align: right;
+  width: inherit;
+}
+
+form legend button {
+  margin: 0 2px;
 }
 
 form label {
@@ -24,13 +38,10 @@ form input[type=reset] {
 }
 
 form textarea {
+  margin: 10px 0;
   width: 370px;
 }
 
-/**
- * Debug cache.
- *
-#comments {
-  opacity: 0.5;
-  visibility: visible !important;
-}*/
+form .textmarked {
+  margin: 5px 0;
+}
