@@ -479,6 +479,59 @@ function TextMarked(textarea, settings = {}) {
   }
 
   /**
+   * Convert Markdown to HTML equivalent.
+   *
+   * @param {String} value
+   *   Text string to process.
+   *
+   * @return {String}
+   */
+  function convertToMarkup(text = '') {
+    const lines = text.split(/\n/);
+
+    const _lines = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i];
+
+      _lines.push(
+        line
+
+          // Heading
+          .replace(/^#\s(.*)$/gm, '<h1>$1</h1>')
+
+          // Bold
+          .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
+
+          // Italic
+          .replace(/_(.*)_/gm, '<em>$1</em>')
+
+          // Blockquote
+          .replace(/^>\s(.*)$/gm, '<blockquote>$1</blockquote>')
+
+          // Code
+          .replace(/`(.*)`/gm, '<code>$1</code>')
+
+          // Horizontal-Rule
+          .replace(/^---$/gm, '<hr />')
+
+          // Link
+          .replace(/^\[(.*)\]\((.*)\)$/gm, '<a href="$1">$2</a>')
+
+          // Image
+          .replace(/^!\[(.*)\]\((.*)\)$/gm, '<img src="$1" alt="$2">')
+      );
+
+      // Correct break lines.
+      if (line === "" && /(h1|blockquote|hr)>$/.test(_lines[_lines.length - 2])) {
+        _lines.pop();
+      }
+    }
+
+    return _lines.join('<br />');
+  }
+
+  /**
    * Return Markdown usage example.
    *
    * @param {String} name
@@ -570,6 +623,10 @@ function TextMarked(textarea, settings = {}) {
    */
   self.focus = function() {
     uiState.content.focus();
+  };
+
+  self.markup = function() {
+    return convertToMarkup(textarea.value);
   };
 
   return self;
