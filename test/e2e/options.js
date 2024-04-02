@@ -26,8 +26,8 @@ describe('Editor options', function() {
       },
       {
         name: 'Italic',
-        output: '_ _',
-        example: '_Italic_'
+        output: '* *',
+        example: '*Italic*'
       },
       {
         name: 'Blockquote',

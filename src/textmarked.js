@@ -504,7 +504,7 @@ function TextMarked(textarea, settings = {}) {
           .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
 
           // Italic
-          .replace(/_(.*)_/gm, '<em>$1</em>')
+          .replace(/\*(.*)\*/gm, '<em>$1</em>')
 
           // Blockquote
           .replace(/^>\s(.*)$/gm, '<blockquote>$1</blockquote>')
@@ -587,7 +587,7 @@ function TextMarked(textarea, settings = {}) {
   }
 
   function mItalic(value) {
-    return '_' + (value || ' ') + '_';
+    return '*' + (value || ' ') + '*';
   }
 
   function mBlockquote(value) {
