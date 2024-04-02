@@ -30,11 +30,22 @@
 
         var textarea = document.getElementById('comments');
 
-        textMarked(textarea, settings).focus();
+        var editor = textMarked(textarea, settings);
+        editor.focus();
 
-        var button = document.getElementById('toggle-button');
+        var output = document.getElementById('output');
 
-        button.addEventListener('click', event => {
+        var previewButton = document.getElementById('preview-button');
+
+        previewButton.addEventListener('click', event => {
+          event.preventDefault();
+
+          output.innerHTML = editor.markup();
+        });
+
+        var toggleButton = document.getElementById('toggle-button');
+
+        toggleButton.addEventListener('click', event => {
           event.preventDefault();
 
           var field1 = document.querySelector('#comments');
@@ -59,6 +70,7 @@
     <form>
       <fieldset>
         <legend>
+          <button id="preview-button">Preview</button>
           <button id="toggle-button">Toggle</button>
         </legend>
 
@@ -71,5 +83,7 @@
 
       <input type="Reset" />
     </form>
+
+    <div id="output"></div>
   </body>
 </html>
