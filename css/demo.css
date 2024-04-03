@@ -1,9 +1,9 @@
 body {
+  font-family: sans-serif;
   margin: 2px;
 }
 
 form {
-  font-family: sans-serif;
   margin: 10% auto 0 auto;
   width: 380px;
 }
@@ -44,4 +44,34 @@ form textarea {
 
 form .textmarked {
   margin: 5px 0;
+}
+
+#output {
+  border-top: 1px solid #bbb;
+  height: 400px;
+  margin-top: 50px;
+  padding: 20px 10px 10px 10px;
+}
+
+#output * {
+  margin: 0;
+  padding: 0;
+}
+
+#output blockquote {
+  background-color: #eee;
+  color: #555;
+  border-left: 2px solid #999;
+  font-style: italic;
+  margin: 10px 5px;
+  padding: 10px;
+}
+
+#output code {
+  background-color: #eee;
+  color: #555;
+}
+
+#output img {
+  width: 100%;
 }
