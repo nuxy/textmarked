@@ -497,33 +497,35 @@ function TextMarked(textarea, settings = {}) {
       _lines.push(
         line
 
-          // Heading
-          .replace(/^#\s(.*)$/gm, '<h1>$1</h1>')
+        // Heading
+        .replace(/^#\s(.*)$/g, '<h1>$1</h1>')
 
-          // Bold
-          .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
+        // Bold
+        .replace(/\*\*(.*)\*\*/g, '<strong>$1</strong>')
 
-          // Italic
-          .replace(/\*(.*)\*/gm, '<em>$1</em>')
+        // Italic
+        .replace(/\*(.*)\*/g, '<em>$1</em>')
 
-          // Blockquote
-          .replace(/^>\s(.*)$/gm, '<blockquote>$1</blockquote>')
+        // Blockquote
+        .replace(/^>\s(.*)$/g, '<blockquote>$1</blockquote>')
 
-          // Code
-          .replace(/`(.*)`/gm, '<code>$1</code>')
+        // Code
+        .replace(/`(.*)`/g, '<code>$1</code>')
 
-          // Horizontal-Rule
-          .replace(/^---$/gm, '<hr />')
+        // Horizontal-Rule
+        .replace(/^---$/g, '<hr>')
 
-          // Link
-          .replace(/^\[(.*)\]\((.*)\)$/gm, '<a href="$1">$2</a>')
+        // Image
+        .replace(/!\[([^()]+)\]\(([^()]+)\)/g, '<img src="$2" alt="$1">')
 
-          // Image
-          .replace(/^!\[(.*)\]\((.*)\)$/gm, '<img src="$1" alt="$2">')
+        // Link
+        .replace(/\[([^()]+)\]\(([^()]+)\)/g, '<a href="$2">$1</a>')
       );
 
-      // Correct break lines.
-      if (line === "" && /(h1|blockquote|hr)>$/.test(_lines[_lines.length - 2])) {
+      // Remove <BR> following a block element.
+      const lastLine = _lines[_lines.length - 2];
+
+      if (line === "" && /(h1|blockquote|hr)>$/.test(lastLine)) {
         _lines.pop();
       }
     }
