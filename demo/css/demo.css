@@ -23,6 +23,10 @@ form legend {
 }
 
 form legend button {
+  background-color: transparent;
+  border: none;
+  color: #0000ff;
+  cursor: pointer;
   margin: 0 2px;
 }
 
