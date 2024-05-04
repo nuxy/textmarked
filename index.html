@@ -55,10 +55,15 @@
             field1.style.visibility = 'visible';
             field1.style.position = 'relative';
             field2.style.display = 'none';
+
+            toggleButton.textContent = 'Show TextMarked';
+
           } else {
             field1.style.visibility = 'hidden';
             field1.style.position = 'absolute';
             field2.style.display = 'block';
+
+            toggleButton.textContent = 'Show default';
           }
         });
       };
@@ -70,8 +75,9 @@
     <form>
       <fieldset>
         <legend>
-          <button id="preview-button">Preview</button>
-          <button id="toggle-button">Toggle</button>
+          <button id="toggle-button">Show default</button>
+            &middot;
+          <button id="preview-button">Preview changes</button>
         </legend>
 
         <div>

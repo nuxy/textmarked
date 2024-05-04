@@ -23,6 +23,10 @@ form legend {
 }
 
 form legend button {
+  background-color: transparent;
+  border: none;
+  color: #0000ff;
+  cursor: pointer;
   margin: 0 2px;
 }
 
@@ -58,12 +62,24 @@ form .textmarked {
   padding: 0;
 }
 
+#output blockquote,
+#output h1,
+#output h2,
+#output h3,
+#output h4,
+#output h5,
+#output ol,
+#output ul {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
 #output blockquote {
   background-color: #eee;
   color: #555;
   border-left: 2px solid #999;
   font-style: italic;
-  margin: 10px 5px;
+  margin-left: 5px;
   padding: 10px;
 }
 
@@ -74,4 +90,8 @@ form .textmarked {
 
 #output img {
   width: 100%;
+}
+
+#output li {
+  margin-left: 30px;
 }
