@@ -487,12 +487,32 @@ function TextMarked(textarea, settings = {}) {
    * @return {String}
    */
   function convertToMarkup(text = '') {
-    const lines = text.split(/\n/);
-
+    const  lines = text.split(/\n/);
     const _lines = [];
+
+    let isList = false;
 
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
+
+      // List-item REGEX replacer.
+      const listReplacer = (tagName, value) => {
+        value = `<li>${value}</li>`;
+
+        const isLastItem = /^\s?(?:-|\d\.){1}\s(.*)$/.test(lines[i + 1]);
+
+        if (isList === false && isLastItem) {
+          value = `<${tagName}>${value}`;
+          isList = true;
+        }
+
+        if (isList === true && !isLastItem) {
+          value = `${value}</${tagName}>`;
+          isList = false;
+        }
+
+        return value;
+      };
 
       _lines.push(
         line
@@ -520,17 +540,16 @@ function TextMarked(textarea, settings = {}) {
 
         // Link
         .replace(/\[([^()]+)\]\(([^()]+)\)/g, '<a href="$2">$1</a>')
+
+        // Ordered-List
+        .replace(/^\s?\d+\.\s(.*)$/, (_, v) => listReplacer('ol', v))
+
+        // Unordered-List
+        .replace(/^\s?-\s(.*)$/, (_, v) => listReplacer('ul', v))
       );
-
-      // Remove <BR> following a block element.
-      const lastLine = _lines[_lines.length - 2];
-
-      if (line === "" && /(h1|blockquote|hr)>$/.test(lastLine)) {
-        _lines.pop();
-      }
     }
 
-    return _lines.join('<br />');
+    return _lines.join('');
   }
 
   /**
