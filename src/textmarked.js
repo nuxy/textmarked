@@ -118,6 +118,7 @@ function TextMarked(textarea, settings = {}) {
     _textarea.addEventListener('keydown', keyDownEvent);
     _textarea.addEventListener('keyup', keyUpEvent);
     _textarea.addEventListener('mouseup', textSelectionEvent);
+    _textarea.addEventListener('mouseout', textSelectionEvent);
     _textarea.addEventListener('copy', clipboardCopyEvent);
     _textarea.addEventListener('cut', clipboardCopyEvent);
     _textarea.addEventListener('paste', clipboardPasteEvent);
@@ -304,6 +305,8 @@ function TextMarked(textarea, settings = {}) {
     const selection = window.getSelection();
 
     const {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
+
+    console.log('TEXT X', selection);
 
     // Handle inverted selections (reversed scope).
     const isInverted = (focusOffset > anchorOffset);
