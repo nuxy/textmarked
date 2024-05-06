@@ -306,8 +306,6 @@ function TextMarked(textarea, settings = {}) {
 
     const {focusNode, focusOffset, anchorNode, anchorOffset} = selection;
 
-    console.log('TEXT X', selection);
-
     // Handle inverted selections (reversed scope).
     const isInverted = (focusOffset > anchorOffset);
     const _focusOffset  = (isInverted) ? anchorOffset : focusOffset;
