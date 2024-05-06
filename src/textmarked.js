@@ -496,6 +496,13 @@ function TextMarked(textarea, settings = {}) {
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
 
+      // Heading REGEX replacer.
+      const headingReplacer = (sigil, value) => {
+        const level = sigil.length;
+
+        return `<h${level}>${value}</h${level}>`;
+      };
+
       // List-item REGEX replacer.
       const listReplacer = (tagName, value) => {
         value = `<li>${value}</li>`;
@@ -519,7 +526,7 @@ function TextMarked(textarea, settings = {}) {
         line
 
         // Heading
-        .replace(/^#\s(.*)$/g, '<h1>$1</h1>')
+        .replace(/^(#{1,5})\s(.*)$/g, (_, v1, v2) => headingReplacer(v1, v2))
 
         // Bold
         .replace(/\*\*(.*)\*\*/g, '<strong>$1</strong>')
