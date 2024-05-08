@@ -4,6 +4,7 @@
 .npmignore
 .vscode
 demo
+ISSUE_TEMPLATE.md
 package.*
 node_modules
 test
