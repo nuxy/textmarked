@@ -34,13 +34,17 @@
         var editor = textMarked(textarea, settings);
         editor.focus();
 
+        var container = document.querySelector('.textmarked');
+
         var output = document.getElementById('output');
 
-        var previewButton = document.getElementById('preview-button');
+        var content = container.querySelector('.content');
 
-        previewButton.addEventListener('click', event => {
-          event.preventDefault();
+        container.addEventListener('click', () => {
+          output.innerHTML = editor.markup();
+        });
 
+        content.addEventListener('keyup', () => {
           output.innerHTML = editor.markup();
         });
 
@@ -94,8 +98,6 @@
       <fieldset>
         <legend>
           <button id="toggle-button">Show default</button>
-            &middot;
-          <button id="preview-button">Preview changes</button>
         </legend>
 
         <div>
