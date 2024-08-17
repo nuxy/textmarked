@@ -27,8 +27,6 @@ Ravens in \`stories\` often act as [psychopomps](https://en.wikipedia.org/wiki/P
     it('should have value', async function() {
       await editor.$('.content').addValue(text);
 
-      await $('#preview-button').click();
-
       const output = await $('#output').getHTML();
 
       await expect(output).toMatch('<h1>The Raven</h1>');
