@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preload" href="https://buttons.github.io/buttons.js" as="script" />
     <link rel="stylesheet" type="text/css" href="textmarked.min.css" />
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
 
@@ -33,13 +34,17 @@
         var editor = textMarked(textarea, settings);
         editor.focus();
 
+        var container = document.querySelector('.textmarked');
+
         var output = document.getElementById('output');
 
-        var previewButton = document.getElementById('preview-button');
+        var content = container.querySelector('.content');
 
-        previewButton.addEventListener('click', event => {
-          event.preventDefault();
+        container.addEventListener('click', () => {
+          output.innerHTML = editor.markup();
+        });
 
+        content.addEventListener('keyup', () => {
           output.innerHTML = editor.markup();
         });
 
@@ -69,15 +74,30 @@
       };
     </script>
 
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <style type="text/css">
+      #github-buttons {
+        margin: 15px 10px;
+      }
+    </style>
+
     <title>Enable Markdown editing in HTML &lt;textarea &sol;&gt; | textmarked</title>
   </head>
   <body>
+
+    <!-- Github buttons start -->
+    <nav id="github-buttons">
+      <a class="github-button" href="https://github.com/nuxy/textmarked" data-color-scheme="no-preference:light;light:light;dark:dark;" data-size="large" aria-label="View project on GitHub">textmarked</a>
+      <a class="github-button" href="https://github.com/nuxy/textmarked" data-color-scheme="no-preference:light;light:light;dark:dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star nuxy/textmarked on GitHub">Star</a>
+      <a class="github-button" href="https://github.com/nuxy/textmarked/fork" data-color-scheme="no-preference:light;light:light;dark:dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork nuxy/textmarked on GitHub">Fork</a>
+    </nav>
+    <!-- Github buttons end -->
+
     <form>
       <fieldset>
         <legend>
           <button id="toggle-button">Show default</button>
-            &middot;
-          <button id="preview-button">Preview changes</button>
         </legend>
 
         <div>
