@@ -132,9 +132,7 @@ This package is maintained under the [Semantic Versioning](https://semver.org) g
 
 This package is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose.
 
-_textmarked_ is provided under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php)
-
-[Amazon S3](https://aws.amazon.com/s3) is a registered trademark of Amazon Web Services, Inc.
+_textmarked_ and [Lineicons](https://github.com/LineiconsHQ/Lineicons) are provided under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php)
 
 ## Author
 
