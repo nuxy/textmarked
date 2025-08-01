@@ -1,6 +1,6 @@
 # textmarked
 
-[![npm version](https://badge.fury.io/js/textmarked.svg)](https://badge.fury.io/js/textmarked) [![](https://img.shields.io/npm/dm/textmarked)](https://www.npmjs.com/package/textmarked) [![Build Status](https://img.shields.io/github/actions/workflow/status/nuxy/textmarked/.github%2Fworkflows%2Fci.yml)](https://app.travis-ci.com/github/nuxy/textmarked) [![Install size](https://packagephobia.com/badge?p=textmarked)](https://packagephobia.com/result?p=textmarked) [![](https://img.shields.io/github/v/release/nuxy/textmarked)](https://github.com/nuxy/textmarked/releases)
+[![npm version](https://badge.fury.io/js/textmarked.svg)](https://badge.fury.io/js/textmarked) [![](https://img.shields.io/npm/dm/textmarked)](https://www.npmjs.com/package/textmarked) [![Build Status](https://img.shields.io/github/actions/workflow/status/nuxy/textmarked/.github%2Fworkflows%2Fci.yml)](https://app.travis-ci.com/github/nuxy/textmarked) [![Install size](https://packagephobia.com/badge?p=textmarked)](https://packagephobia.com/result?p=textmarked) [![](https://img.shields.io/github/v/release/nuxy/textmarked)](https://github.com/nuxy/textmarked/releases) [![NO AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/nuxy/no-ai-badge)
 
 Enable Markdown editing in HTML `<textarea />`
 
