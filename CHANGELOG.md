@@ -12,3 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0) a
 ## [0.1.2] - 2024-10-12
 
 - Updated documentation
+
+## [0.2.0] - 2025-08-01
+
+- Upgraded `@wdio` CLI local-runner, outdated NPM packages

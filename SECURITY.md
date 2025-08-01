@@ -5,6 +5,7 @@
 | Version | Supported          |
 | ------- | ------------------ |
 | x.1.0   | :white_check_mark: |
+| x.2.0   | :white_check_mark: |
 
 ## Reporting an issue
 
