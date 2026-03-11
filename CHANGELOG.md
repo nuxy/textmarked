@@ -16,3 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0) a
 ## [0.2.0] - 2025-08-01
 
 - Upgraded `@wdio` CLI local-runner, outdated NPM packages
+
+## [0.2.1] - 2026-03-11
+
+- Upgraded outdated NPM packages
+- NPM security updates
