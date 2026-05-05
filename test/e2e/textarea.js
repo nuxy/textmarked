@@ -16,11 +16,11 @@ describe('Editor textarea', function() {
       const textarea = await editor.$('.content');
 
       await expect(textarea).toHaveAttribute('contenteditable', 'true', {
-        message: `Attribute contenteditable="true" is defined`
+        message: 'Attribute contenteditable="true" is defined'
       });
 
       await expect(textarea).toHaveAttribute('tabindex', '11', {
-        message: `Attribute tabindex="11" is defined`
+        message: 'Attribute tabindex="11" is defined'
       });
 
       await expect(textarea).toHaveAttribute('aria-label', 'Content editor', {

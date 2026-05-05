@@ -1,7 +1,7 @@
 'use strict';
 
 import {browser, expect, $} from '@wdio/globals';
-import {Key}                from 'webdriverio'
+import {Key}                from 'webdriverio';
 
 describe('Editor options', function() {
   let editor;

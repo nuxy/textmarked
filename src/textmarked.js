@@ -20,7 +20,7 @@ function TextMarked(textarea, settings = {}) {
   const self = this;
 
   const defaults = {
-    allowKeys: `a-z0-9\\s,.?!$%&()\\[\\]"'-_#*\`>`,
+    allowKeys: 'a-z0-9\\s,.?!$%&()\\[\\]"\'-_#*\`>',
     allowEnter: false,
     clipboard: false,
     showExample: false
@@ -314,7 +314,9 @@ function TextMarked(textarea, settings = {}) {
     const _anchorNode   = (isInverted) ? focusNode    : anchorNode;
 
     // Limit selection focus to only #text nodes.
-    if (isContentEditable(_focusNode)) { return }
+    if (isContentEditable(_focusNode)) {
+      return;
+    }
 
     const contents = uiState.content.childNodes;
     const nodeList = [];
@@ -347,7 +349,9 @@ function TextMarked(textarea, settings = {}) {
 
     // Restrict empty selections.
     if (_focusOffset === _anchorOffset
-      && (_anchorOffset > 1 || _focusOffset === 0)) { return }
+      && (_anchorOffset > 1 || _focusOffset === 0)) {
+      return;
+    }
 
     uiState.selection = {
       nodes: (nodeList.length) ? nodeList : [_focusNode],
