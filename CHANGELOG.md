@@ -21,3 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0) a
 
 - Upgraded outdated NPM packages
 - NPM security updates
+
+## [0.2.2] - 2026-05-05
+
+- Override serialize-javascript (see mochajs/mocha#5781)
+- Upgraded Babel to latest release
+- Upgraded Webdriver.IO to latest (9.27.1)
+- Replaced ESLint deprecated release
